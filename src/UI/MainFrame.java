@@ -1,11 +1,15 @@
 package UI;
 
+import javax.sound.sampled.Control;
 import javax.swing.JFrame;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.CardLayout;
+import java.io.IOException;
+
+import Control.Control_Initialize;
 
 public class MainFrame extends JFrame{
     
@@ -27,7 +31,9 @@ public class MainFrame extends JFrame{
 
         cardLayout = new CardLayout();
         cards = new JPanel(cardLayout);
-
+        /**
+         * For UI
+         */
         LoginPanel loginPanel = new LoginPanel();
         RegisterPanel registerPanel = new RegisterPanel();
         GradePanel gradePanel = new GradePanel();
@@ -44,9 +50,17 @@ public class MainFrame extends JFrame{
         PortfolioPanel portfolioPanel = new PortfolioPanel();
         PersonPanel personPanel = new PersonPanel();
 
+        /**
+         * For Control
+         */
+        Control_Initialize control_initialize = new Control_Initialize();
+
+
         loginPanel.getLoginButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cards, "gradePanel");
+                if(control_initialize.loginCheck(loginPanel.getUsername(),loginPanel.getPassword())==1){
+                    cardLayout.show(cards, "gradePanel");
+                }
             }
         });
         loginPanel.getRegisterButton().addActionListener(new ActionListener() {
@@ -57,7 +71,10 @@ public class MainFrame extends JFrame{
         
         registerPanel.getFinishButton().addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cards, "loginPanel");
+                if(control_initialize.signUp(registerPanel.getUsername(),registerPanel.getPassword(),registerPanel.getMajor(),registerPanel.getRealname(),registerPanel.getGrade())){
+                    cardLayout.show(cards, "loginPanel");
+                }
+
             }
         });
 

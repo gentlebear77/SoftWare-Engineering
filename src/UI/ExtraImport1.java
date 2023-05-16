@@ -31,7 +31,7 @@ public class ExtraImport1 extends JPanel {
         JTextArea contentField = new JTextArea();
         contentField.setBounds(240,250,400,100);
 
-        backButton = new JButton("back");//a back-arrow picture
+        backButton = new JButton("Back");//a back-arrow picture
         backButton.setBounds(0,0,70,30);
         backButton.setContentAreaFilled(false);
         

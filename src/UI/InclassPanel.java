@@ -10,10 +10,19 @@ public class InclassPanel extends JPanel{
 	private JButton exitButton;
 	private JButton importButton1;
     private JButton importButton2;
+//    public JComboBox<String> comboBox;
 	
 	public InclassPanel() {
 		setLayout(null);
-        
+
+//        comboBox = new JComboBox<>();
+//        comboBox.addItem("选项 1");
+//        comboBox.addItem("选项 2");
+//        comboBox.addItem("选项 3");
+//
+//        comboBox.setBounds(200,0,70,30);
+//        add(comboBox);
+
         backButton = new JButton("Back");//a back-arrow picture
         backButton.setBounds(0,0,70,30);
         backButton.setContentAreaFilled(false);

@@ -34,7 +34,7 @@ public class CampusImport2 extends JPanel {
         finishButton.setBounds(230,350,100,27);
         finishButton.setContentAreaFilled(false);
 
-        backButton = new JButton("back");//a back-arrow picture
+        backButton = new JButton("Back");//a back-arrow picture
         backButton.setBounds(0,0,70,30);
         backButton.setContentAreaFilled(false);
         

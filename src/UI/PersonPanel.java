@@ -43,7 +43,7 @@ public class PersonPanel extends JPanel {
         majorLabel2.setFont(new Font("Arial", Font.PLAIN, 15));
         majorLabel2.setBounds(480,400,120,25);
 
-        backButton = new JButton("back");//a back-arrow picture
+        backButton = new JButton("Back");//a back-arrow picture
         backButton.setBounds(0,0,70,30);
         backButton.setContentAreaFilled(false);
         

@@ -84,7 +84,7 @@ public class MainFrame extends JFrame{
             }
         });
         
-        gradePanel.getBackButton().addActionListener(new ActionListener() {
+        gradePanel.getExitButton().addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
                 cardLayout.show(cards, "loginPanel");
             }
@@ -252,7 +252,7 @@ public class MainFrame extends JFrame{
 
         extraImport1.getBackButton().addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cards, "inclassPanel");
+                cardLayout.show(cards, "extraclassPanel");
             }
         });
 
@@ -355,6 +355,15 @@ public class MainFrame extends JFrame{
                 cardLayout.show(cards, "gradePanel");
             }
         });
+
+//        comboBox.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                JComboBox cb = (JComboBox) e.getSource();
+//                String selectedItem = (String) cb.getSelectedItem();
+//                cardLayout.show(cards, selectedItem);
+//            }
+//        });
 
         cards.add(loginPanel, "loginPanel");
         cards.add(registerPanel, "registerPanel");

@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class GradePanel extends JPanel {
 	
-	private JButton backButton;
+	private JButton exitButton;
     private JButton personButton;
     private JButton button1;
     private JButton button2;
@@ -20,11 +20,13 @@ public class GradePanel extends JPanel {
         
         JLabel titleLabel = new JLabel("Let's Go");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 35));
-        titleLabel.setBounds(400,150,300,60); 
-        
-        backButton = new JButton("Back");//a back-arrow picture
-        backButton.setBounds(0,0,70,30);
-        backButton.setContentAreaFilled(false);
+        titleLabel.setBounds(400,150,300,60);
+
+        exitButton = new JButton("Exit");
+        exitButton.setFont(new Font("Arial", Font.BOLD, 13));
+        exitButton.setBounds(891,0,70,30);
+        exitButton.setContentAreaFilled(false);
+        exitButton.setBorderPainted(false);
 
         personButton = new JButton("Person");//a picture
         personButton.setBounds(800,0,80,30);
@@ -60,7 +62,7 @@ public class GradePanel extends JPanel {
         button5 = new JButton("Now");
         button5.setBounds(nowLocation, 300, 80, 30);
         
-        add(backButton);
+        add(exitButton);
         add(personButton);
         add(titleLabel);
         add(button1);
@@ -70,8 +72,8 @@ public class GradePanel extends JPanel {
         add(button5);
     }
     
-    public JButton getBackButton() {
-        return backButton;
+    public JButton getExitButton() {
+        return exitButton;
     }
 
     public JButton getPersonButton() {

@@ -48,9 +48,9 @@ public class RegisterPanel extends JPanel {
         grade.setFont(new Font("Arial", Font.PLAIN, 15));    
         cgrade = new JComboBox<String>();
         cgrade.addItem("1");
-        cgrade.addItem("      2     ");
-        cgrade.addItem("      3     ");
-        cgrade.addItem("      4     ");
+        cgrade.addItem("2");
+        cgrade.addItem("3");
+        cgrade.addItem("4");
         jgrade.add(grade);
         jgrade.add(cgrade);
         

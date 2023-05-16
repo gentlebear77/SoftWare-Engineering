@@ -5,6 +5,17 @@ import com.alibaba.fastjson.annotation.JSONField;
 import java.util.ArrayList;
 
 public class Student {
+
+    private Student currentUser;
+
+    public void setCurrentUser(Student currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public Student getCurrentUser() {
+        return this.currentUser;
+    }
+
     @JSONField(name = "studentID",ordinal = 1)
     private String studentID;
     @JSONField(name = "studentName",ordinal = 2)
@@ -65,16 +76,13 @@ public class Student {
         this.major = major;
     }
 
-    public Student(String[] info) {
+ /*  public Student(String[] info) {
         this.studentID = info[0];
         this.studentName = info[1];
         this.password = info[2];
         this.degree = info[3];
     }
-
-    public Student() {
-        this.moduleList=new ArrayList<Module>();
-    }
+*/
 
     @Override
     public String toString() {

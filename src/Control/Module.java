@@ -35,7 +35,7 @@ public class Module {
     }
 
     public void setGrade(int grade) {
-        Grade = grade;
+       this.Grade = grade;
     }
 
     public double getCredit() {

@@ -2,6 +2,7 @@ package UI;
 
 import java.awt.*;
 import javax.swing.*;
+import Control.Student;
 
 public class GradePanel extends JPanel {
 	
@@ -15,9 +16,10 @@ public class GradePanel extends JPanel {
     private int grade=2;
     private int nowLocation;
 
-    public GradePanel() {
+    public GradePanel(Student currentUser) {
         setLayout(null);
-        
+
+
         JLabel titleLabel = new JLabel("Let's Go");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 35));
         titleLabel.setBounds(400,150,300,60);

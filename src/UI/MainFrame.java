@@ -10,11 +10,13 @@ import java.awt.CardLayout;
 import java.io.IOException;
 
 import Control.Control_Initialize;
+import Control.Student;
 
 public class MainFrame extends JFrame{
     
     private CardLayout cardLayout;
     private JPanel cards;
+    Student currentUser = new Student();
 
     public MainFrame() {
         setTitle("Diary Application");
@@ -35,8 +37,10 @@ public class MainFrame extends JFrame{
          * For UI
          */
         LoginPanel loginPanel = new LoginPanel();
+
+
         RegisterPanel registerPanel = new RegisterPanel();
-        GradePanel gradePanel = new GradePanel();
+        GradePanel gradePanel = new GradePanel(currentUser);
         FunctionPanel functionPanel = new FunctionPanel();
         InclassPanel inclassPanel = new InclassPanel();
         InclassImport inclassImport = new InclassImport();
@@ -48,7 +52,7 @@ public class MainFrame extends JFrame{
         CampusImport campusImport = new CampusImport();
         CampusImport2 campusImport2 = new CampusImport2();
         PortfolioPanel portfolioPanel = new PortfolioPanel();
-        PersonPanel personPanel = new PersonPanel();
+        PersonPanel personPanel = new PersonPanel(currentUser);
 
         /**
          * For Control
@@ -59,6 +63,9 @@ public class MainFrame extends JFrame{
         loginPanel.getLoginButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(control_initialize.loginCheck(loginPanel.getUsername(),loginPanel.getPassword())==1){
+                    currentUser = control_initialize.getCurrentUser();
+                    currentUser.setCurrentUser(currentUser);
+                    System.out.println(currentUser.toString());
                     cardLayout.show(cards, "gradePanel");
                 }
             }
@@ -114,8 +121,11 @@ public class MainFrame extends JFrame{
                 cardLayout.show(cards, "functionPanel");
             }
         });
+
+        //Personal Panel
         gradePanel.getPersonButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                PersonPanel personPanel = new PersonPanel(currentUser);
                 cardLayout.show(cards, "personPanel");
             }
         });

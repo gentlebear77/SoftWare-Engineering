@@ -15,13 +15,14 @@ import java.util.ArrayList;
 public class Control_Initialize {
     private Student currentUser;
 
+    public void setCurrentUser(Student currentUser) {
+        this.currentUser = currentUser;
+    }
+
     public Student getCurrentUser() {
         return this.currentUser;
     }
 
-    public void setCurrentUser(Student currentUser) {
-        this.currentUser = currentUser;
-    }
 
     public int loginCheck(String id, String password){
         //寻找文件
@@ -34,17 +35,18 @@ public class Control_Initialize {
         Student user = readUserFile(id);
         if(user==null){return -1;}
         if (user.getPassword().equals(password)) {
-            //this.setCurrentUser(user);
+            this.setCurrentUser(user);
             //this.getCurrentUser().getModuleList().addAll(Read_ModuleJson(this.getCurrentUser().getStudentID()));
             return 1;
         }
         //密码错误
         return 2;
     }
+
     private static Student readUserFile(String id){
         try{
             FileReader fr=new FileReader("src/users/"+id+"/User.json");
-            ArrayList<Module> result=new ArrayList<Module>();
+            //ArrayList<Module> result=new ArrayList<Module>();
             JSONReader reader=new JSONReader(fr);
             reader.startArray();//开始解析json数组
             Student m = new Student();
@@ -82,13 +84,20 @@ public class Control_Initialize {
 
     public boolean signUp(String id,String password,String major,String studentName,String degree){
         File file = new File("././src/users/"+id+"/User.json");
-
+        File file1 = new File("././src/users/"+id+"/Module.json");
+        File file2 = new File("././src/users/"+id+"/Total.json");
+        File file3 = new File("././src/users/"+id+"/Project.json");
+        File file4 = new File("././src/users/"+id+"/Achievement.json");
+        File file5 = new File("././src/users/"+id+"/Representative.json");
+        File file6 = new File("././src/users/"+id+"/Volunteer.json");
         if(!file.exists()){
 
             try {
                 Path path= Paths.get("././src/users/"+id);
                 Files.createDirectories(path);
                 file.createNewFile();
+                file1.createNewFile();  file2.createNewFile();  file3.createNewFile();
+                file4.createNewFile();  file5.createNewFile();  file6.createNewFile();
                 System.out.println("文件创建成功");
                 writeUserFile(id,password,major,studentName,degree);
                 return true;

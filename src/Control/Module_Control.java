@@ -7,12 +7,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 
-public class Moudle_Control {
+public class Module_Control {
     private Module currentModule;
 
     public void setCurrentModule(Module currentModule) {
@@ -23,6 +19,19 @@ public class Moudle_Control {
         return this.currentModule;
     }
 
+    public int ModuleCheck(String id){
+        //寻找文件
+        File userFile = new File("src/users/"+id+"/User.json");
+        if (!userFile.exists()) {//找不到文件，无用户，0
+            return 0;
+        }
+        //字节读取判断
+
+        Module user = readUserFile(id);
+
+        this.setCurrentModule(user);
+        return 1;
+    }
 
     private static Module readUserFile(String id){
         try{

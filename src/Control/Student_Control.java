@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 
 
-public class Control_Initialize {
+public class Student_Control {
     private Student currentUser;
 
     public void setCurrentUser(Student currentUser) {
@@ -23,25 +23,6 @@ public class Control_Initialize {
         return this.currentUser;
     }
 
-
-    public int loginCheck(String id, String password){
-        //寻找文件
-        File userFile = new File("src/users/"+id+"/User.json");
-        if (!userFile.exists()) {//找不到文件，无用户，0
-            return 0;
-        }
-        //字节读取判断
-
-        Student user = readUserFile(id);
-        if(user==null){return -1;}
-        if (user.getPassword().equals(password)) {
-            this.setCurrentUser(user);
-            //this.getCurrentUser().getModuleList().addAll(Read_ModuleJson(this.getCurrentUser().getStudentID()));
-            return 1;
-        }
-        //密码错误
-        return 2;
-    }
 
     private static Student readUserFile(String id){
         try{
@@ -82,34 +63,6 @@ public class Control_Initialize {
         }
     }
 
-    public boolean signUp(String id,String password,String major,String studentName,String degree){
-        File file = new File("././src/users/"+id+"/User.json");
-        File file1 = new File("././src/users/"+id+"/Module.json");
-        File file2 = new File("././src/users/"+id+"/Total.json");
-        File file3 = new File("././src/users/"+id+"/Project.json");
-        File file4 = new File("././src/users/"+id+"/Achievement.json");
-        File file5 = new File("././src/users/"+id+"/Representative.json");
-        File file6 = new File("././src/users/"+id+"/Volunteer.json");
-        if(!file.exists()){
-
-            try {
-                Path path= Paths.get("././src/users/"+id);
-                Files.createDirectories(path);
-                file.createNewFile();
-                file1.createNewFile();  file2.createNewFile();  file3.createNewFile();
-                file4.createNewFile();  file5.createNewFile();  file6.createNewFile();
-                System.out.println("文件创建成功");
-                writeUserFile(id,password,major,studentName,degree);
-                return true;
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            }
-        }else{
-            System.out.println("用户文件存在");
-            return false;
-        }
-    }
     public boolean writeUserFile(String id,String password,String major,String studentName,String degree){
         JSONObject jsonObj = new JSONObject();
 //向jsonObj中添加数据：{"adapter":"WLAN","ip_address":"192.168.1.6"}
@@ -135,4 +88,5 @@ public class Control_Initialize {
             return false;
         }
     }
+
 }

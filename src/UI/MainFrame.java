@@ -9,14 +9,18 @@ import java.awt.event.ActionListener;
 import java.awt.CardLayout;
 import java.io.IOException;
 
-import Control.Control_Initialize;
+import Control.Module;
 import Control.Student;
+import Control.*;
 
 public class MainFrame extends JFrame{
     
     private CardLayout cardLayout;
     private JPanel cards;
+
     Student currentUser = new Student();
+    Module currentModule = new Module();
+
 
     public MainFrame() {
         setTitle("Diary Application");
@@ -36,9 +40,8 @@ public class MainFrame extends JFrame{
         /**
          * For UI
          */
+
         LoginPanel loginPanel = new LoginPanel();
-
-
         RegisterPanel registerPanel = new RegisterPanel();
         GradePanel gradePanel = new GradePanel(currentUser);
         FunctionPanel functionPanel = new FunctionPanel();
@@ -58,6 +61,11 @@ public class MainFrame extends JFrame{
          * For Control
          */
         Control_Initialize control_initialize = new Control_Initialize();
+        Module_Control module_control = new Module_Control();
+        Project_Control project_control = new Project_Control();
+        Representative_Control representative_control = new Representative_Control();
+        Total_Control total_control = new Total_Control();
+        Volunteer_Control  volunteer_control = new Volunteer_Control();
 
 
         loginPanel.getLoginButton().addActionListener(new ActionListener() {
@@ -125,7 +133,7 @@ public class MainFrame extends JFrame{
         //Personal Panel
         gradePanel.getPersonButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                PersonPanel personPanel = new PersonPanel(currentUser);
+                personPanel.Update(currentUser);
                 cardLayout.show(cards, "personPanel");
             }
         });
@@ -135,26 +143,36 @@ public class MainFrame extends JFrame{
                 cardLayout.show(cards, "gradePanel");
             }
         });
+
         functionPanel.getExitButton().addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
                 cardLayout.show(cards, "loginPanel");
             }
         });
+        // Main Page
+        //Portfolio
         functionPanel.getChoiceButton1().addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
                 cardLayout.show(cards, "portfolioPanel");
             }
         });
+        //Inclass
         functionPanel.getChoiceButton2().addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cards, "inclassPanel");
+                if(module_control.ModuleCheck(currentUser.getStudentID()) == 1){
+                    currentModule = module_control.getCurrentModule();
+                    inclassPanel.Update(currentModule);
+                    cardLayout.show(cards, "inclassPanel");
+                }
             }
         });
+        //Extraclass
         functionPanel.getChoiceButton3().addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
                 cardLayout.show(cards, "extraclassPanel");
             }
         });
+
         functionPanel.getChoiceButton4().addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
                 //cardLayout.show(cards, "inclassPanel");

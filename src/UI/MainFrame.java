@@ -256,6 +256,9 @@ public class MainFrame extends JFrame{
 
         inclassImport2.getFinishButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                total_control.writeUserFile(currentUser.getStudentID(),inclassImport2.getScoreField(),inclassImport2.getScoreField2(),inclassImport2.getGPAField(),inclassImport2.getRankField());
+                currentUser.moduleList = module_control.Read_ModuleJson(currentUser.getStudentID());
+                inclassPanel.Update(currentUser);
                 cardLayout.show(cards, "inclassPanel");
             }
         });
@@ -297,6 +300,19 @@ public class MainFrame extends JFrame{
 
         extraImport1.getFinishButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                project_control.writeUserFile(currentUser.getStudentID(),extraImport1.getNameField(),extraImport1.getYearField(),extraImport1.getContentField());
+                currentUser.projectList = project_control.Read_ProjectJson(currentUser.getStudentID());
+                extraclassPanel.remove(7);
+                extraclassPanel.remove(7);
+                JScrollPane p1=ExtraclassPanel.createProjectsPanel(currentUser);
+                p1.setBounds(90,190,340,360);
+                p1.setBorder(BorderFactory.createEtchedBorder());
+                extraclassPanel.add(p1);
+                JScrollPane p2=ExtraclassPanel.createAwardsPanel(currentUser);
+                p2.setBounds(520,190,340,360);
+                p2.setBorder(BorderFactory.createEtchedBorder());
+                extraclassPanel.add(p2);
+
                 cardLayout.show(cards, "extraclassPanel");
             }
         });
@@ -315,6 +331,19 @@ public class MainFrame extends JFrame{
 
         extraImport2.getFinishButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                achievement_control.writeUserFile(currentUser.getStudentID(),extraImport2.getNameField(),extraImport2.getYearField());
+                currentUser.achievementList = achievement_control.Read_AchievementJson(currentUser.getStudentID());
+                extraclassPanel.remove(7);
+                extraclassPanel.remove(7);
+                JScrollPane p1=ExtraclassPanel.createProjectsPanel(currentUser);
+                p1.setBounds(90,190,340,360);
+                p1.setBorder(BorderFactory.createEtchedBorder());
+                extraclassPanel.add(p1);
+                JScrollPane p2=ExtraclassPanel.createAwardsPanel(currentUser);
+                p2.setBounds(520,190,340,360);
+                p2.setBorder(BorderFactory.createEtchedBorder());
+                extraclassPanel.add(p2);
+
                 cardLayout.show(cards, "extraclassPanel");
             }
         });
@@ -356,6 +385,20 @@ public class MainFrame extends JFrame{
 
         campusImport.getFinishButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+                representative_control.writeUserFile(currentUser.getStudentID(),campusImport.getNameField(),campusImport.getYearField());
+                currentUser.representativeList = representative_control.Read_RepresentativeJson(currentUser.getStudentID());
+
+                campusPanel.remove(7);
+                campusPanel.remove(7);
+                JScrollPane p1=campusPanel.createRepPanel(currentUser);
+                p1.setBounds(90,190,340,360);
+                p1.setBorder(BorderFactory.createEtchedBorder());
+                campusPanel.add(p1);
+                JScrollPane p2=campusPanel.createVolunPanel(currentUser);
+                p2.setBounds(520,190,340,360);
+                p2.setBorder(BorderFactory.createEtchedBorder());
+                campusPanel.add(p2);
                 cardLayout.show(cards, "campusPanel");
             }
         });
@@ -374,6 +417,21 @@ public class MainFrame extends JFrame{
 
         campusImport2.getFinishButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                volunteer_control.writeUserFile(currentUser.getStudentID(),campusImport2.getNameField(),campusImport2.getYearField(),campusImport2.getDurationField());
+                currentUser.volunteerList = volunteer_control.Read_VolunteerJson(currentUser.getStudentID());
+
+                campusPanel.remove(7);
+                campusPanel.remove(7);
+                JScrollPane p1=campusPanel.createRepPanel(currentUser);
+                p1.setBounds(90,190,340,360);
+                p1.setBorder(BorderFactory.createEtchedBorder());
+                campusPanel.add(p1);
+                JScrollPane p2=campusPanel.createVolunPanel(currentUser);
+                p2.setBounds(520,190,340,360);
+                p2.setBorder(BorderFactory.createEtchedBorder());
+                campusPanel.add(p2);
+                cardLayout.show(cards, "campusPanel");
+
                 cardLayout.show(cards, "campusPanel");
             }
         });

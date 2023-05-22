@@ -134,5 +134,17 @@ public class InclassPanel extends JPanel{
                 moduletable.addRow(new String[]{user.moduleList.get(i).getModuleNum(), user.moduleList.get(i).getModuleName(), user.moduleList.get(i).getGrade() + "", user.moduleList.get(i).getCredit() + "", user.moduleList.get(i).getMark() + ""});
             }
         }
+        try{
+            for(int i = 0;i <= user.totalList.size();i++){
+                scoretable.removeRow(0);
+            }
+        }catch (Exception e){System.out.println(e.getMessage());}
+        if(user.getStudentID()!=null) {
+
+            for (int i = 0; i < user.totalList.size(); i++) {
+
+                scoretable.addRow(new String[]{Double.toString(user.totalList.get(i).getAverageScore()), Double.toString(user.totalList.get(i).getAveragePostgraduate()), user.totalList.get(i).getGPA() + "", user.totalList.get(i).getRank() + ""});
+            }
+        }
     }
 }

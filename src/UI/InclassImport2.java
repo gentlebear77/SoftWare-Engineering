@@ -9,31 +9,36 @@ public class InclassImport2 extends JPanel {
 	private JButton exitButton;
     private JButton finishButton;
 
+    JTextField scoreField = new JTextField(15);
+    JTextField scoreField2 = new JTextField(15);
+    JTextField GPAField = new JTextField(15);
+    JTextField rankField = new JTextField(15);
+
     public InclassImport2() {
         setLayout(null);
 
         JLabel scoreLabel = new JLabel("Average Score:");
         scoreLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         scoreLabel.setBounds(190,100,120,25);
-        JTextField scoreField = new JTextField(15);
+
         scoreField.setBounds(340,100,120,25);
 
         JLabel scoreLabel2 = new JLabel("Average Score of Postgraduate:");
         scoreLabel2.setFont(new Font("Arial", Font.PLAIN, 15));
         scoreLabel2.setBounds(76,150,250,25);
-        JTextField scoreField2 = new JTextField(15);
+
         scoreField2.setBounds(340,150,120,25);
 
         JLabel GPALabel = new JLabel("GPA:");
         GPALabel.setFont(new Font("Arial", Font.PLAIN, 15));
         GPALabel.setBounds(258,200,120,25);
-        JTextField GPAField = new JTextField(15);
+
         GPAField.setBounds(340,200,120,25);
 
         JLabel rankLabel = new JLabel("Rank:");
         rankLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         rankLabel.setBounds(255,250,120,25);
-        JTextField rankField = new JTextField(15);
+
         rankField.setBounds(340,250,200,25);
         
 
@@ -75,6 +80,20 @@ public class InclassImport2 extends JPanel {
     public JButton getFinishButton() {
         return finishButton;
     }
-    
 
+    public String getGPAField() {
+        return GPAField.getText();
+    }
+
+    public String getRankField() {
+        return rankField.getText();
+    }
+
+    public String getScoreField() {
+        return scoreField.getText();
+    }
+
+    public String getScoreField2() {
+        return scoreField2.getText();
+    }
 }

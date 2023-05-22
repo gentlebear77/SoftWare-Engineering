@@ -60,17 +60,28 @@ public class Representative_Control {
         System.out.println("要添加到JSON文件中的数据:" + jsonObj);
 //写入操作
         try {
-            RandomAccessFile RAwiter = new RandomAccessFile("src/users/" + id + "/Representative.json", "rw");
-            if (RAwiter.length() != 0) {
-                System.out.println("用户文件存在且损坏");
-                return false;
+            String filePath = "src/users/" + id + "/Representative.json";
+
+            RandomAccessFile randomAccessFile = new RandomAccessFile(filePath, "rw");
+            long fileLength = randomAccessFile.length();
+            System.out.println(fileLength);
+            if (fileLength == 2) {
+                randomAccessFile.seek(fileLength - 1); // 移动到倒数第二个字符位置，即最后一个数据项之前的逗号位置
+
+                randomAccessFile.writeBytes(jsonObj.toString());
             } else {
-                RAwiter.writeBytes("[" + jsonObj.toString() + "]");
-                RAwiter.close();
-                return true;
+                randomAccessFile.seek(fileLength - 2); // 移动到倒数第二个字符位置，即最后一个数据项之前的逗号位置
+                randomAccessFile.writeBytes(",\n");
+                randomAccessFile.writeBytes(jsonObj.toString());
             }
 
+            randomAccessFile.writeBytes("\n]"); // 添加 JSON 数组的结束标记
+            randomAccessFile.close();
+
+            System.out.println("JSON successful：" + filePath);
+            return true;
         } catch (IOException ex) {
+            System.out.println("写入文件时发生错误：" + ex.getMessage());
             return false;
         }
     }

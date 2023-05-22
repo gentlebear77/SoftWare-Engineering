@@ -9,26 +9,29 @@ public class ExtraImport1 extends JPanel {
 	private JButton exitButton;
     private JButton finishButton;
 
+    JTextField nameField = new JTextField(15);
+    JTextField yearField = new JTextField(15);
+    JTextArea contentField = new JTextArea();
+
     public ExtraImport1() {
         setLayout(null);
 
         JLabel nameLabel = new JLabel("Project Name:");
         nameLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         nameLabel.setBounds(100,150,120,25);
-        JTextField nameField = new JTextField(15);
         nameField.setBounds(240,150,200,25);
 
 
         JLabel yearLabel = new JLabel("Date:");
         yearLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         yearLabel.setBounds(160,200,120,25);
-        JTextField yearField = new JTextField(15);
+
         yearField.setBounds(240,200,120,25);
 
         JLabel contentLabel = new JLabel("Project Content:");
         contentLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         contentLabel.setBounds(90,250,120,25);
-        JTextArea contentField = new JTextArea();
+
         contentField.setBounds(240,250,400,100);
 
         backButton = new JButton("Back");//a back-arrow picture
@@ -66,5 +69,17 @@ public class ExtraImport1 extends JPanel {
     
     public JButton getFinishButton() {
         return finishButton;
+    }
+
+    public String getNameField() {
+        return nameField.getText();
+    }
+
+    public String getContentField() {
+        return contentField.getText();
+    }
+
+    public String getYearField() {
+        return yearField.getText();
     }
 }

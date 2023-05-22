@@ -113,11 +113,36 @@ public class Control_Initialize {
 
                     bufferedWriter2.close();
                     fileWriter2.close();
+
+                    FileWriter fileWriter3=new FileWriter(file3);
+                    BufferedWriter bufferedWriter3=new BufferedWriter(fileWriter3);
+                    bufferedWriter3.write("[]");
+
+                    bufferedWriter3.close();
+                    fileWriter3.close();
+
+                    FileWriter fileWriter4=new FileWriter(file4);
+                    BufferedWriter bufferedWriter4=new BufferedWriter(fileWriter4);
+                    bufferedWriter4.write("[]");
+
+                    bufferedWriter4.close();
+                    fileWriter4.close();
+
+                    FileWriter fileWriter5=new FileWriter(file5);
+                    BufferedWriter bufferedWriter5=new BufferedWriter(fileWriter5);
+                    bufferedWriter5.write("[]");
+
+                    bufferedWriter5.close();
+                    fileWriter5.close();
+
+                    FileWriter fileWriter6=new FileWriter(file6);
+                    BufferedWriter bufferedWriter6=new BufferedWriter(fileWriter6);
+                    bufferedWriter6.write("[]");
+
+                    bufferedWriter6.close();
+                    fileWriter6.close();
                 }catch (IOException e){System.out.println(e.getMessage());}
-                Achievement_Control AC=new Achievement_Control();AC.writeUserFile(id,"","");
-                Project_Control PC=new Project_Control();PC.writeUserFile(id,"","","");
-                Representative_Control RC=new Representative_Control();RC.writeUserFile(id,"","");
-                Volunteer_Control VC=new Volunteer_Control();VC.writeUserFile(id,"","","");
+
                 return true;
             } catch (IOException e) {
                 e.printStackTrace();

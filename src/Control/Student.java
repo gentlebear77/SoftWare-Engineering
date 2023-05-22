@@ -72,14 +72,7 @@ public class Student {
     public void setMajor(String major) {
         this.major = major;
     }
-
- /*  public Student(String[] info) {
-        this.studentID = info[0];
-        this.studentName = info[1];
-        this.password = info[2];
-        this.degree = info[3];
-    }
-*/
+    
 
     @Override
     public String toString() {

@@ -44,9 +44,9 @@ public class Module_Control {
                     } else if ("Grade".equals(key)) {
                         m.setGrade(reader.readString());
                     } else if ("credit".equals(key)) {
-                        m.setCredit(reader.readInteger());
+                        m.setCredit(Double.parseDouble(reader.readString()));
                     } else if ("mark".equals(key)) {
-                        m.setMark(reader.readInteger());
+                        m.setMark(Double.parseDouble(reader.readString()));
                     } else {
 
                         reader.readObject();//读取对象

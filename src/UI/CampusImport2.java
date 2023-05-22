@@ -9,25 +9,29 @@ public class CampusImport2 extends JPanel {
 	private JButton exitButton;
     private JButton finishButton;
 
+    JTextField nameField = new JTextField(15);
+    JTextField yearField = new JTextField(15);
+    JTextField durationField = new JTextField(15);
+
     public CampusImport2() {
         setLayout(null);
 
         JLabel nameLabel = new JLabel("Volunteer Activity Name:");
         nameLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         nameLabel.setBounds(82,200,170,25);
-        JTextField nameField = new JTextField(15);
+
         nameField.setBounds(290,200,250,25);
 
         JLabel yearLabel = new JLabel("Date:");
         yearLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         yearLabel.setBounds(210,250,120,25);
-        JTextField yearField = new JTextField(15);
+
         yearField.setBounds(290,250,120,25);
 
         JLabel durationLabel = new JLabel("Volunteer Duration:");
         durationLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         durationLabel.setBounds(117,300,150,25);
-        JTextField durationField = new JTextField(15);
+
         durationField.setBounds(290,300,120,25);
 
         finishButton = new JButton("Finish");
@@ -66,5 +70,16 @@ public class CampusImport2 extends JPanel {
     public JButton getFinishButton() {
         return finishButton;
     }
-    
+
+    public String getYearField() {
+        return yearField.getText();
+    }
+
+    public String getNameField() {
+        return nameField.getText();
+    }
+
+    public String getDurationField() {
+        return durationField.getText();
+    }
 }

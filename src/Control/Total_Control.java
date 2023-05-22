@@ -23,17 +23,16 @@ public class Total_Control {
         return this.currentTotal;
     }
 
-
-    private static Total readUserFile(String id){
+    public ArrayList<Total> Read_TotalJson(String StudentID){
         try{
-            FileReader fr=new FileReader("src/users/"+id+"/Total.json");
+            FileReader fr=new FileReader("src/users/"+StudentID+"/Total.json");
 
+            ArrayList<Total> result=new ArrayList<Total>();
             JSONReader reader=new JSONReader(fr);
             reader.startArray();//开始解析json数组
-            Total m = new Total();
             while (reader.hasNext()) {
                 reader.startObject();//开始解析json对象
-
+                Total m = new Total();
                 while (reader.hasNext()) {
                     String key = reader.readString();
                     if ("AverageScore".equals(key)) {
@@ -50,17 +49,15 @@ public class Total_Control {
 
                 }
                 reader.endObject();//结束解析对象
+                result.add(m);
             }
             reader.endArray();//结束解析数组
             reader.close();//关闭流
-            return m;
+            return result;
         }catch (IOException e){
-            System.out.println(e);
-            System.out.println("用户数据文件异常");
             return null;
         }
     }
-
 
     public boolean writeUserFile(String id, double AverageScore,double AveragePostgraduate,String GPA,String Rank) {
         JSONObject jsonObj = new JSONObject();

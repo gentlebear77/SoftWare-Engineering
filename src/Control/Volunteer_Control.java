@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 
 public class Volunteer_Control {
     private Volunteer currentVolunteer;
@@ -19,40 +20,40 @@ public class Volunteer_Control {
     }
 
 
-    private static Volunteer readUserFile(String id){
+    public ArrayList<Volunteer> Read_VolunteerJson(String StudentID){
         try{
-            FileReader fr=new FileReader("src/users/"+id+"/Volunteer.json");
-
+            FileReader fr=new FileReader("src/users/"+StudentID+"/Volunteer.json");
+            ArrayList<Volunteer> result=new ArrayList<Volunteer>();
             JSONReader reader=new JSONReader(fr);
             reader.startArray();//开始解析json数组
-            Volunteer m = new Volunteer();
             while (reader.hasNext()) {
                 reader.startObject();//开始解析json对象
-
+                Volunteer m = new Volunteer();
                 while (reader.hasNext()) {
                     String key = reader.readString();
                     if ("VolunteerName".equals(key)) {
                         m.setVolunteerName(reader.readString());
-                    } else if ("Date".equals(key)) {
-                        m.setDate(reader.readString());
                     } else if ("Duration".equals(key)) {
                         m.setDuration(reader.readString());
+                    } else if ("Date".equals(key)) {
+                        m.setDate(reader.readString());
                     } else {
+
                         reader.readObject();//读取对象
                     }
 
                 }
                 reader.endObject();//结束解析对象
+                result.add(m);
             }
             reader.endArray();//结束解析数组
             reader.close();//关闭流
-            return m;
+            return result;
         }catch (IOException e){
-            System.out.println(e);
-            System.out.println("用户数据文件异常");
             return null;
         }
     }
+
 
 
     public boolean writeUserFile(String id, String VolunteerName,String Date,String Duration) {

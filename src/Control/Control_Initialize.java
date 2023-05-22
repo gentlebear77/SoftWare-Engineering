@@ -43,7 +43,7 @@ public class Control_Initialize {
         return 2;
     }
 
-    private static Student readUserFile(String id){
+    public static Student readUserFile(String id){
         try{
             FileReader fr=new FileReader("src/users/"+id+"/User.json");
             //ArrayList<Module> result=new ArrayList<Module>();
@@ -100,6 +100,24 @@ public class Control_Initialize {
                 file4.createNewFile();  file5.createNewFile();  file6.createNewFile();
                 System.out.println("文件创建成功");
                 writeUserFile(id,password,major,studentName,degree);
+                try{
+                    FileWriter fileWriter1=new FileWriter(file1);
+                    BufferedWriter bufferedWriter1=new BufferedWriter(fileWriter1);
+                    bufferedWriter1.write("[]");
+
+                    bufferedWriter1.close();
+                    fileWriter1.close();
+                    FileWriter fileWriter2=new FileWriter(file2);
+                    BufferedWriter bufferedWriter2=new BufferedWriter(fileWriter2);
+                    bufferedWriter2.write("[]");
+
+                    bufferedWriter2.close();
+                    fileWriter2.close();
+                }catch (IOException e){System.out.println(e.getMessage());}
+                Achievement_Control AC=new Achievement_Control();AC.writeUserFile(id,"","");
+                Project_Control PC=new Project_Control();PC.writeUserFile(id,"","","");
+                Representative_Control RC=new Representative_Control();RC.writeUserFile(id,"","");
+                Volunteer_Control VC=new Volunteer_Control();VC.writeUserFile(id,"","","");
                 return true;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -133,6 +151,42 @@ public class Control_Initialize {
 
         } catch (IOException ex) {
             return false;
+        }
+    }
+
+
+
+    public ArrayList<Volunteer> Read_VolunteerJson(String StudentID){
+        try{
+            FileReader fr=new FileReader("src/users/"+StudentID+"/Volunteer.json");
+            ArrayList<Volunteer> result=new ArrayList<Volunteer>();
+            JSONReader reader=new JSONReader(fr);
+            reader.startArray();//开始解析json数组
+            while (reader.hasNext()) {
+                reader.startObject();//开始解析json对象
+                Volunteer m = new Volunteer();
+                while (reader.hasNext()) {
+                    String key = reader.readString();
+                    if ("VolunteerName".equals(key)) {
+                        m.setVolunteerName(reader.readString());
+                    } else if ("Duration".equals(key)) {
+                        m.setDuration(reader.readString());
+                    } else if ("Date".equals(key)) {
+                        m.setDate(reader.readString());
+                    } else {
+
+                        reader.readObject();//读取对象
+                    }
+
+                }
+                reader.endObject();//结束解析对象
+                result.add(m);
+            }
+            reader.endArray();//结束解析数组
+            reader.close();//关闭流
+            return result;
+        }catch (IOException e){
+            return null;
         }
     }
 }

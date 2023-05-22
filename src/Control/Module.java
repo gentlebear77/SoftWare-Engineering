@@ -8,7 +8,7 @@ public class Module {
     @JSONField(name = "moduleName",ordinal = 2)
     private String moduleName;
     @JSONField(name = "Grade",ordinal = 3)
-    private int Grade;
+    private String Grade;
     @JSONField(name = "credit",ordinal = 4)
     private double credit;
     @JSONField(name = "mark",ordinal = 5)
@@ -30,11 +30,11 @@ public class Module {
         this.moduleName = moduleName;
     }
 
-    public int getGrade() {
+    public String getGrade() {
         return Grade;
     }
 
-    public void setGrade(int grade) {
+    public void setGrade(String grade) {
        this.Grade = grade;
     }
 
@@ -65,7 +65,7 @@ public class Module {
                 '}';
     }
 
-    public Module(String moduleNum, String moduleName, int grade, double credit, double mark) {
+    public Module(String moduleNum, String moduleName, String grade, double credit, double mark) {
         this.moduleNum = moduleNum;
         this.moduleName = moduleName;
         this.Grade = grade;

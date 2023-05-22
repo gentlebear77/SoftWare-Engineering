@@ -4,6 +4,7 @@ import Control.Module;
 import Control.Student;
 
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -58,28 +59,33 @@ public class InclassPanel extends JPanel{
 
         moduletable.setBounds(50,110,600,450);
         //example data
-        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
-        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
-        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
-        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
-        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
-        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
-        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
-        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
-        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
-        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
-        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
-        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
-        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
-        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
-        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
-        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
-        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
-        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
-        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
-        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
-        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
-        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
+//        if(user.getStudentID()!=null) {
+//            for (int i = 0; i < user.getModuleList().size(); i++) {
+//                moduletable.addRow(new String[]{user.getModuleList().get(i).getModuleNum(), user.getModuleList().get(i).getModuleName(), user.getModuleList().get(i).getGrade() + "", user.getModuleList().get(i).getCredit() + "", user.getModuleList().get(i).getMark() + ""});
+//            }
+//        }
+//        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
+//        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
+//        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
+//        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
+//        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
+//        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
+//        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
+//        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
+//        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
+//        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
+//        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
+//        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
+//        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
+//        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
+//        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
+//        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
+//        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
+//        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
+//        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
+//        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
+//        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
+//        moduletable.addRow(new String[]{"QM001", "Management", "2", "3", "87"});
         
         //String[] columnNames2 = {"Total"};
         //TablePanel scoretable = new TablePanel(columnNames2);
@@ -113,12 +119,20 @@ public class InclassPanel extends JPanel{
         return importButton2;
     }
 
-    public void Update (Module currentModule) {
+    public void Update (Student user) {
+        try{
+            for(int i = 0;i <= user.moduleList.size();i++){
+                moduletable.removeRow(0);
+            }
+        }catch (Exception e){System.out.println(e.getMessage());}
+        if(user.getStudentID()!=null) {
 
-        moduletable.addRow(new String[]{"BUPT001", "Math", "1", "4", "96"});
-        scoretable.addRow(new String[]{"Average Score: 89"});
+            for (int i = 0; i < user.moduleList.size(); i++) {
 
+                System.out.println(i+":"+user.moduleList.get(i).getMark());
 
-
+                moduletable.addRow(new String[]{user.moduleList.get(i).getModuleNum(), user.moduleList.get(i).getModuleName(), user.moduleList.get(i).getGrade() + "", user.moduleList.get(i).getCredit() + "", user.moduleList.get(i).getMark() + ""});
+            }
+        }
     }
 }

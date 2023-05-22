@@ -1,5 +1,7 @@
 package UI;
 
+import Control.Student;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -11,8 +13,10 @@ public class ExtraclassPanel extends JPanel{
 	private JButton exitButton;
 	private JButton importButton1;
     private JButton importButton2;
+    public JScrollPane panel1;
+    public JScrollPane panel2;
 
-    public ExtraclassPanel() {
+    public ExtraclassPanel(Student user) {
         setLayout(null);
         
         backButton = new JButton("Back");//a back-arrow picture
@@ -34,7 +38,8 @@ public class ExtraclassPanel extends JPanel{
         subtitle1.setBounds(160,130,220,30); 
         //JPanel panel1 = new JPanel();
         //panel1.setBounds(90,190,340,360);
-        JScrollPane panel1 = createProjectsPanel();
+
+        panel1 = createProjectsPanel(user);
         panel1.setBounds(90,190,340,360);
         panel1.setBorder(BorderFactory.createEtchedBorder());
         
@@ -43,7 +48,7 @@ public class ExtraclassPanel extends JPanel{
         subtitle2.setBounds(620,130,220,30); 
         //JPanel panel2 = new JPanel();
         // panel2.setBounds(520,190,340,360);
-        JScrollPane panel2 = createAwardsPanel();
+        panel2 = createAwardsPanel(user);
         panel2.setBounds(520,190,340,360);
         panel2.setBorder(BorderFactory.createEtchedBorder());
         
@@ -58,10 +63,10 @@ public class ExtraclassPanel extends JPanel{
         add(titleLabel);
         add(subtitle1);
         add(subtitle2); 
-        add(panel1);
-        add(panel2);
         add(importButton1);
         add(importButton2);
+        add(panel1);
+        add(panel2);
     }
 
     public JButton getBackButton() {
@@ -77,21 +82,22 @@ public class ExtraclassPanel extends JPanel{
         return importButton2;
     }
 
-    private static JScrollPane createProjectsPanel() {
+    public static JScrollPane createProjectsPanel(Student user) {
         JPanel projectsPanel = new JPanel();
         projectsPanel.setLayout(new BoxLayout(projectsPanel, BoxLayout.Y_AXIS));
-
-        for (int i = 1; i <= 10; i++) {
-            projectsPanel.add(createProject("Project " + i, "2022-04-11", "This is a project description."));
+        if(user.getStudentID()!=null){
+            for (int i = 0; i < user.projectList.size(); i++) {
+                projectsPanel.add(createProject(user.projectList.get(i).getProjectName(), user.projectList.get(i).getDate(), user.projectList.get(i).getContent()));
+            }
+            //projectsPanel.add(createProject("Project 1", "2022-04-11", "This is a project description."));
+            projectsPanel.setPreferredSize(new Dimension(250, 150 * user.projectList.size()));
         }
-        //projectsPanel.add(createProject("Project 1", "2022-04-11", "This is a project description."));
-        projectsPanel.setPreferredSize(new Dimension(250, 150 * 10));
         JScrollPane scrollPane = new JScrollPane(projectsPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         return scrollPane;
     }
 
-    private static JPanel createProject(String projectName, String projectTime, String projectDescription) {
+    public static JPanel createProject(String projectName, String projectTime, String projectDescription) {
         JPanel projectPanel = new JPanel(new BorderLayout());
 
         JPanel headerPanel = new JPanel(new BorderLayout());
@@ -113,22 +119,25 @@ public class ExtraclassPanel extends JPanel{
         return projectPanel;
     }
 
-    private static JScrollPane createAwardsPanel() {
+    public static JScrollPane createAwardsPanel(Student user) {
+        System.out.println(user.projectList);
         JPanel awardsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         awardsPanel.setLayout(new BoxLayout(awardsPanel, BoxLayout.Y_AXIS));
         //This i can be set as a variable that indicate the max number of the item.
         //some back code can set the i use an variable max number.
-        for (int i = 1; i <= 10; i++) {
-            awardsPanel.add(createAward("Award" + i, "2022-04-11"));
+        if(user.getStudentID()!=null){
+            for (int i = 0; i < user.achievementList.size(); i++) {
+                awardsPanel.add(createAward(user.achievementList.get(i).getAchievementName(), user.achievementList.get(i).getDate()));
+            }
+            //This 50*max number of item ,Here set as 10.
+            awardsPanel.setPreferredSize(new Dimension(200, 50 * user.achievementList.size()));
         }
-        //This 50*max number of item ,Here set as 10.
-        awardsPanel.setPreferredSize(new Dimension(200, 50 * 10));
         JScrollPane scrollPane = new JScrollPane(awardsPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         return scrollPane;
     }
 
-    private static JPanel createAward(String awardName, String awardTime) {
+    public static JPanel createAward(String awardName, String awardTime) {
         JPanel awardPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         awardPanel.setBackground(Color.WHITE);
         JLabel nameLabel = new JLabel(awardName);
@@ -143,4 +152,8 @@ public class ExtraclassPanel extends JPanel{
         awardPanel.setBorder(border);
         return awardPanel;
     }
+
+
+
+
 }

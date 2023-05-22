@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 
 public class Project_Control {
     private Project currentProject;
@@ -19,37 +20,36 @@ public class Project_Control {
     }
 
 
-    private static Project readUserFile(String id){
+    public ArrayList<Project> Read_ProjectJson(String StudentID){
         try{
-            FileReader fr=new FileReader("src/users/"+id+"/Project.json");
-
+            FileReader fr=new FileReader("src/users/"+StudentID+"/Project.json");
+            ArrayList<Project> result=new ArrayList<Project>();
             JSONReader reader=new JSONReader(fr);
             reader.startArray();//开始解析json数组
-            Project m = new Project();
             while (reader.hasNext()) {
                 reader.startObject();//开始解析json对象
-
+                Project m = new Project();
                 while (reader.hasNext()) {
                     String key = reader.readString();
                     if ("ProjectName".equals(key)) {
                         m.setProjectName(reader.readString());
-                    } else if ("Date".equals(key)) {
-                        m.setDate(reader.readString());
                     } else if ("Content".equals(key)) {
                         m.setContent(reader.readString());
+                    } else if ("Date".equals(key)) {
+                        m.setDate(reader.readString());
                     } else {
+
                         reader.readObject();//读取对象
                     }
 
                 }
                 reader.endObject();//结束解析对象
+                result.add(m);
             }
             reader.endArray();//结束解析数组
             reader.close();//关闭流
-            return m;
+            return result;
         }catch (IOException e){
-            System.out.println(e);
-            System.out.println("用户数据文件异常");
             return null;
         }
     }

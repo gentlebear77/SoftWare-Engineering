@@ -26,7 +26,12 @@ public class Student {
     private String degree;
     @JSONField(name = "major",ordinal = 5)
     private String major;
-    private ArrayList<Module> moduleList;
+    public ArrayList<Module> moduleList;
+    public ArrayList<Total> totalList;
+    public ArrayList<Project> projectList;
+    public ArrayList<Achievement> achievementList;
+    public ArrayList<Representative> representativeList;
+    public ArrayList<Volunteer> volunteerList;
 
     public String getStudentID() {
         return this.studentID;
@@ -58,14 +63,6 @@ public class Student {
 
     public void setDegree(String degree) {
         this.degree = degree;
-    }
-
-    public ArrayList<Module> getModuleList() {
-        return this.moduleList;
-    }
-
-    public void setModuleList(ArrayList<Module> moduleList) {
-        this.moduleList = moduleList;
     }
 
     public String getMajor() {

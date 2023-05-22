@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 
 public class Representative_Control {
     private Representative currentRepresentative;
@@ -19,39 +20,37 @@ public class Representative_Control {
     }
 
 
-    private static Representative readUserFile(String id){
+    public ArrayList<Representative> Read_RepresentativeJson(String StudentID){
         try{
-            FileReader fr=new FileReader("src/users/"+id+"/Representative.json");
-
+            FileReader fr=new FileReader("src/users/"+StudentID+"/Representative.json");
+            ArrayList<Representative> result=new ArrayList<Representative>();
             JSONReader reader=new JSONReader(fr);
             reader.startArray();//开始解析json数组
-            Representative m = new Representative();
             while (reader.hasNext()) {
                 reader.startObject();//开始解析json对象
-
+                Representative m = new Representative();
                 while (reader.hasNext()) {
                     String key = reader.readString();
                     if ("RepresentativeName".equals(key)) {
                         m.setRepresentativeName(reader.readString());
                     } else if ("Date".equals(key)) {
                         m.setDate(reader.readString());
-                    }  else {
+                    } else {
+
                         reader.readObject();//读取对象
                     }
 
                 }
                 reader.endObject();//结束解析对象
+                result.add(m);
             }
             reader.endArray();//结束解析数组
             reader.close();//关闭流
-            return m;
+            return result;
         }catch (IOException e){
-            System.out.println(e);
-            System.out.println("用户数据文件异常");
             return null;
         }
     }
-
 
     public boolean writeUserFile(String id, String RepresentativeName,String Date) {
         JSONObject jsonObj = new JSONObject();

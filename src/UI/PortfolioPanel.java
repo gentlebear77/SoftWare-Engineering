@@ -82,6 +82,7 @@ public class PortfolioPanel extends JPanel{
     public JButton getExitButton() {
         return exitButton;
     }
+
     
 }
 

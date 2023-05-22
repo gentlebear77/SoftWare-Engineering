@@ -3,10 +3,16 @@ package Control;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONReader;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 
 public class Module_Control {
     private Module currentModule;
@@ -19,30 +25,16 @@ public class Module_Control {
         return this.currentModule;
     }
 
-    public int ModuleCheck(String id){
-        //寻找文件
-        File userFile = new File("src/users/"+id+"/User.json");
-        if (!userFile.exists()) {//找不到文件，无用户，0
-            return 0;
-        }
-        //字节读取判断
 
-        Module user = readUserFile(id);
-
-        this.setCurrentModule(user);
-        return 1;
-    }
-
-    private static Module readUserFile(String id){
+    public ArrayList<Module> Read_ModuleJson(String StudentID){
         try{
-            FileReader fr=new FileReader("src/users/"+id+"/Module.json");
-
+            FileReader fr=new FileReader("src/users/"+StudentID+"/Module.json");
+            ArrayList<Module> result=new ArrayList<Module>();
             JSONReader reader=new JSONReader(fr);
             reader.startArray();//开始解析json数组
-            Module m = new Module();
             while (reader.hasNext()) {
                 reader.startObject();//开始解析json对象
-
+                Module m = new Module();
                 while (reader.hasNext()) {
                     String key = reader.readString();
                     if ("moduleNum".equals(key)) {
@@ -50,51 +42,60 @@ public class Module_Control {
                     } else if ("moduleName".equals(key)) {
                         m.setModuleName(reader.readString());
                     } else if ("Grade".equals(key)) {
-                        m.setGrade(reader.readInteger());
+                        m.setGrade(reader.readString());
                     } else if ("credit".equals(key)) {
-                        m.setCredit(Double.parseDouble(reader.readString()));
+                        m.setCredit(reader.readInteger());
                     } else if ("mark".equals(key)) {
-                        m.setMark(Double.parseDouble(reader.readString()));
+                        m.setMark(reader.readInteger());
                     } else {
+
                         reader.readObject();//读取对象
                     }
 
                 }
                 reader.endObject();//结束解析对象
+                result.add(m);
             }
             reader.endArray();//结束解析数组
             reader.close();//关闭流
-            return m;
+            return result;
         }catch (IOException e){
-            System.out.println(e);
-            System.out.println("用户数据文件异常");
             return null;
         }
     }
 
 
-    public boolean writeUserFile(String id, String moduleNum,String moduleName,int Grade,double credit,double mark) {
+    public boolean writeUserFile(String id, String moduleNum, String moduleName, String Grade, double credit, double mark) {
         JSONObject jsonObj = new JSONObject();
-//向jsonObj中添加数据：{"adapter":"WLAN","ip_address":"192.168.1.6"}
         jsonObj.put("moduleNum", moduleNum);
         jsonObj.put("moduleName", moduleName);
         jsonObj.put("Grade", Grade);
         jsonObj.put("credit", credit);
         jsonObj.put("mark", mark);
-        System.out.println("要添加到JSON文件中的数据:" + jsonObj);
-//写入操作
+
         try {
-            RandomAccessFile RAwiter = new RandomAccessFile("src/users/" + id + "/Module.json", "rw");
-            if (RAwiter.length() != 0) {
-                System.out.println("用户文件存在且损坏");
-                return false;
+            String filePath = "src/users/" + id + "/Module.json";
+
+            RandomAccessFile randomAccessFile = new RandomAccessFile(filePath, "rw");
+            long fileLength = randomAccessFile.length();
+            System.out.println(fileLength);
+            if (fileLength == 2) {
+                randomAccessFile.seek(fileLength - 1); // 移动到倒数第二个字符位置，即最后一个数据项之前的逗号位置
+
+                randomAccessFile.writeBytes(jsonObj.toString());
             } else {
-                RAwiter.writeBytes("[" + jsonObj.toString() + "]");
-                RAwiter.close();
-                return true;
+                randomAccessFile.seek(fileLength - 2); // 移动到倒数第二个字符位置，即最后一个数据项之前的逗号位置
+                randomAccessFile.writeBytes(",\n");
+                randomAccessFile.writeBytes(jsonObj.toString());
             }
 
+            randomAccessFile.writeBytes("\n]"); // 添加 JSON 数组的结束标记
+            randomAccessFile.close();
+
+            System.out.println("JSON successful：" + filePath);
+            return true;
         } catch (IOException ex) {
+            System.out.println("写入文件时发生错误：" + ex.getMessage());
             return false;
         }
     }

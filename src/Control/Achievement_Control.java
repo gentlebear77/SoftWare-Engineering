@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 
 public class Achievement_Control {
     private Achievement currentAchievement;
@@ -19,38 +20,38 @@ public class Achievement_Control {
     }
 
 
-    private static Achievement readUserFile(String id){
+    public ArrayList<Achievement> Read_AchievementJson(String StudentID){
         try{
-            FileReader fr=new FileReader("src/users/"+id+"/Achievement.json");
-
+            FileReader fr=new FileReader("src/users/"+StudentID+"/Achievement.json");
+            ArrayList<Achievement> result=new ArrayList<Achievement>();
             JSONReader reader=new JSONReader(fr);
             reader.startArray();//开始解析json数组
-            Achievement m = new Achievement();
             while (reader.hasNext()) {
                 reader.startObject();//开始解析json对象
-
+                Achievement m = new Achievement();
                 while (reader.hasNext()) {
                     String key = reader.readString();
                     if ("AchievementName".equals(key)) {
                         m.setAchievementName(reader.readString());
                     } else if ("Date".equals(key)) {
                         m.setDate(reader.readString());
-                    }  else {
+                    } else {
+
                         reader.readObject();//读取对象
                     }
 
                 }
                 reader.endObject();//结束解析对象
+                result.add(m);
             }
             reader.endArray();//结束解析数组
             reader.close();//关闭流
-            return m;
+            return result;
         }catch (IOException e){
-            System.out.println(e);
-            System.out.println("用户数据文件异常");
             return null;
         }
     }
+
 
 
     public boolean writeUserFile(String id, String AchievementName,String Date) {

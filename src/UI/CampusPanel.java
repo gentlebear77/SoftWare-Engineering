@@ -1,5 +1,7 @@
 package UI;
 
+import Control.Student;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -11,8 +13,10 @@ public class CampusPanel extends JPanel{
 	private JButton exitButton;
 	private JButton importButton1;
     private JButton importButton2;
+    public   JScrollPane panel1;
+    public   JScrollPane panel2;
 
-    public CampusPanel() {
+    public CampusPanel(Student user) {
         setLayout(null);
         
         backButton = new JButton("Back");//a back-arrow picture
@@ -34,7 +38,7 @@ public class CampusPanel extends JPanel{
         subtitle1.setBounds(190,130,220,30); 
         //JPanel panel1 = new JPanel();
         //panel1.setBounds(90,190,340,360);
-        JScrollPane panel1 = createRepPanel();
+        panel1 = createRepPanel(user);
         panel1.setBounds(90,190,340,360);
         panel1.setBorder(BorderFactory.createEtchedBorder());
         
@@ -43,7 +47,7 @@ public class CampusPanel extends JPanel{
         subtitle2.setBounds(590,130,220,30); 
         //JPanel panel2 = new JPanel();
         // panel2.setBounds(520,190,340,360);
-        JScrollPane panel2 = createVolunPanel();
+        panel2 = createVolunPanel(user);
         panel2.setBounds(520,190,340,360);
         panel2.setBorder(BorderFactory.createEtchedBorder());
         
@@ -58,10 +62,11 @@ public class CampusPanel extends JPanel{
         add(titleLabel);
         add(subtitle1);
         add(subtitle2);
-        add(panel1);
-        add(panel2);
+
         add(importButton1);
         add(importButton2);
+        add(panel1);
+        add(panel2);
     }
 
     public JButton getBackButton() {
@@ -77,70 +82,88 @@ public class CampusPanel extends JPanel{
         return importButton2;
     }
 
-    private static JScrollPane createRepPanel() {
+    public static JScrollPane createRepPanel(Student user) {
         JPanel repPanel = new JPanel();
         repPanel.setLayout(new BoxLayout(repPanel, BoxLayout.Y_AXIS));
+       if(user.getStudentID()!=null){
 
-        for (int i = 1; i <= 10; i++) {
-            repPanel.add(createRep("Rep " + i, "2022-04-11"));
+           for (int i = 0; i <user.representativeList.size(); i++) {
+               repPanel.add(createRep(user.representativeList.get(i).getRepresentativeName(), user.representativeList.get(i).getDate()));
+           }
+           System.out.println(user.representativeList.size());
+           repPanel.setPreferredSize(new Dimension(250, (50 * user.representativeList.size())));
         }
-        repPanel.setPreferredSize(new Dimension(250, 50 * 10));
         JScrollPane scrollPane = new JScrollPane(repPanel);
+
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         return scrollPane;
     }
 
-    private static JPanel createRep(String repName, String repTime) {
-        JPanel repPanel = new JPanel(new BorderLayout());
+    public static JPanel createRep(String repName, String repTime) {
+        JPanel repPanel = new JPanel();
         repPanel.setBackground(Color.WHITE);
+
+        repPanel.setLayout(new BoxLayout(repPanel, BoxLayout.LINE_AXIS));
+
         JLabel nameLabel = new JLabel(repName);
         nameLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        repPanel.add(nameLabel, BorderLayout.WEST);
+        repPanel.add(nameLabel);
 
         JLabel timeLabel = new JLabel(repTime);
         timeLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        repPanel.add(timeLabel, BorderLayout.EAST);
-        
+        repPanel.add(Box.createHorizontalGlue());
+        repPanel.add(timeLabel);
+
         Border border = new LineBorder(Color.LIGHT_GRAY, 1);
         repPanel.setBorder(border);
-        return repPanel;
 
+        return repPanel;
     }
 
-    private static JScrollPane createVolunPanel() {
-        JPanel volunPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    public static JScrollPane createVolunPanel(Student user) {
+        JPanel volunPanel = new JPanel(new FlowLayout());
         volunPanel.setLayout(new BoxLayout(volunPanel, BoxLayout.Y_AXIS));
        
         //This i can be set as a variable that indicate the max number of the item.
         //some back code can set the i use an variable max number.
-        for (int i = 1; i <= 10; i++) {
-            volunPanel.add(createVolunteer("Volunteer Experence" + i, "2022-04-11","4h"));
+        if(user.getStudentID()!=null){
+            for (int i = 0; i <user.volunteerList.size(); i++) {
+                volunPanel.add(createVolunteer(user.volunteerList.get(i).getVolunteerName(), user.volunteerList.get(i).getDate(),user.volunteerList.get(i).getDuration()));
+            }
+            //This 50*max number of item ,Here set as 10.
+            volunPanel.setPreferredSize(new Dimension(200, 50 * user.volunteerList.size()));
         }
-        //This 50*max number of item ,Here set as 10.
-        volunPanel.setPreferredSize(new Dimension(200, 50 * 10));
         JScrollPane scrollPane = new JScrollPane(volunPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         return scrollPane;
     }
 
-    private static JPanel createVolunteer(String volunName, String volunTime,String volunteerDuration) {
-        JPanel volunPanel = new JPanel(new BorderLayout());
+    public static JPanel createVolunteer(String volunName, String volunTime,String volunteerDuration) {
+        JPanel volunPanel = new JPanel();
         volunPanel.setBackground(Color.WHITE);
-        JLabel nameLabel = new JLabel(volunName);
-        nameLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        volunPanel.add(nameLabel, BorderLayout.WEST);
 
-        JLabel timeLabel = new JLabel(volunTime);
+        volunPanel.setLayout(new BoxLayout(volunPanel, BoxLayout.LINE_AXIS));
+
+        JLabel nameLabel = new JLabel(volunName+"                          "+volunTime);
+        nameLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        volunPanel.add(nameLabel);
+
+      /*  JLabel timeLabel = new JLabel(volunTime);
         timeLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        volunPanel.add(timeLabel, BorderLayout.AFTER_LAST_LINE);
+        volunPanel.add(Box.createHorizontalStrut(100));
+        volunPanel.add(timeLabel);*/
+
         //volunPanel.add(timeLabel, BorderLayout.NORTH);
         JLabel durationLabel = new JLabel(volunteerDuration);
         durationLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        volunPanel.add(durationLabel, BorderLayout.EAST);
-        
+        volunPanel.add(Box.createHorizontalGlue());
+        volunPanel.add(durationLabel);
+
         Border border = new LineBorder(Color.LIGHT_GRAY, 1);
         volunPanel.setBorder(border);
+
         return volunPanel;
+
     }
 
     

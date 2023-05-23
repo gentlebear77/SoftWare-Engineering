@@ -2,6 +2,8 @@ package Control;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.util.ArrayList;
+
 public class Project {
     @JSONField(name = "ProjectName",ordinal = 1)
     private String ProjectName;
@@ -46,4 +48,10 @@ public class Project {
     }
 
     public Project(){}
+
+    public Project(ArrayList<String> info) {
+        ProjectName = info.get(0);
+        Date = info.get(1);
+        Content = info.get(2);
+    }
 }

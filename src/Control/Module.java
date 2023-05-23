@@ -2,6 +2,8 @@ package Control;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.util.ArrayList;
+
 public class Module {
     @JSONField(name = "moduleNum",ordinal = 1)
     private String moduleNum;
@@ -65,12 +67,12 @@ public class Module {
                 '}';
     }
 
-    public Module(String moduleNum, String moduleName, String grade, double credit, double mark) {
-        this.moduleNum = moduleNum;
-        this.moduleName = moduleName;
-        this.Grade = grade;
-        this.credit = credit;
-        this.mark = mark;
+    public Module(ArrayList<String> info) {
+        this.moduleNum = info.get(0);
+        this.moduleName = info.get(1);
+        this.Grade = info.get(2);
+        this.credit = Double.parseDouble(info.get(3));
+        this.mark = Double.parseDouble(info.get(4));
     }
     public Module(){}
 }

@@ -2,6 +2,8 @@ package Control;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.util.ArrayList;
+
 public class Representative {
     @JSONField(name = "RepresentativeName",ordinal = 1)
     private String RepresentativeName;
@@ -35,4 +37,9 @@ public class Representative {
     }
 
     public Representative(){}
+
+    public Representative(ArrayList<String> info) {
+        RepresentativeName = info.get(0);
+        Date = info.get(1);
+    }
 }

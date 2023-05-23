@@ -2,6 +2,8 @@ package Control;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.util.ArrayList;
+
 public class Achievement {
     @JSONField(name = "AchievementName",ordinal = 1)
     private String AchievementName;
@@ -35,4 +37,9 @@ public class Achievement {
     }
 
     public Achievement(){}
+
+    public Achievement(ArrayList<String> info) {
+        AchievementName = info.get(0);
+        Date = info.get(1);
+    }
 }

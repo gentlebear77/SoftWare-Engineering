@@ -3,10 +3,15 @@ package UI;
 import Control.Student;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 public class CampusPanel extends JPanel{
 
     private JButton backButton;
@@ -17,8 +22,15 @@ public class CampusPanel extends JPanel{
     private JButton deleteButton2;
     public   JScrollPane panel1;
     public   JScrollPane panel2;
+    private BufferedImage bg;
 
     public CampusPanel(Student user) {
+        //background
+        try {
+            bg = ImageIO.read(getClass().getResource("/images/lifebg.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setLayout(null);
         
         backButton = new JButton("Back");//a back-arrow picture
@@ -53,17 +65,17 @@ public class CampusPanel extends JPanel{
         panel2.setBounds(520,190,340,360);
         panel2.setBorder(BorderFactory.createEtchedBorder());
         
-        importButton1 = new JButton("Import student work");
-        importButton1.setBounds(320,60,160,25);
-        
-        importButton2 = new JButton("Import volunteer experience");
-        importButton2.setBounds(700,60,210,25);
+        importButton1 = new JButton("Import");  //Import student work
+        importButton1.setBounds(130,570,100,25);
 
-        deleteButton1=new JButton("Delete the newest project");
-        deleteButton1.setBounds(100,570,200,30);
+        importButton2 = new JButton("Import");  //Import volunteer experience
+        importButton2.setBounds(570,570,100,25);
 
-        deleteButton2=new JButton("Delete the newest achievement");
-        deleteButton2.setBounds(520,570,200,30);
+        deleteButton1=new JButton("Delete");  //Delete the newest project
+        deleteButton1.setBounds(280,570,100,25);
+
+        deleteButton2=new JButton("Delete");  //Delete the newest achievement
+        deleteButton2.setBounds(720,570,100,25);
 
         add(backButton);
         add(exitButton);
@@ -176,6 +188,13 @@ public class CampusPanel extends JPanel{
 
         return volunPanel;
 
+    }
+    //background
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // draw image
+        g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
     }
 
     

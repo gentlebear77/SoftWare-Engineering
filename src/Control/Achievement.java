@@ -9,7 +9,8 @@ public class Achievement {
     private String AchievementName;
     @JSONField(name = "Date",ordinal = 2)
     private String Date;
-
+    @JSONField(name = "Grade",ordinal = 3)
+    private String Grade;
 
     public String getAchievementName() {
         return AchievementName;
@@ -41,5 +42,6 @@ public class Achievement {
     public Achievement(ArrayList<String> info) {
         AchievementName = info.get(0);
         Date = info.get(1);
+        Grade = info.get(2);
     }
 }

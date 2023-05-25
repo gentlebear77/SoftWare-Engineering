@@ -114,22 +114,41 @@ public class MainFrame extends JFrame{
         });
         gradePanel.getButton1().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                currentUser.currentgrade =  "1";
                 cardLayout.show(cards, "functionPanel");
             }
         });
         gradePanel.getButton2().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cards, "functionPanel");
+                if(Integer.parseInt(currentUser.getDegree()) >= 2){
+                    currentUser.currentgrade =  "2";
+                    cardLayout.show(cards, "functionPanel");
+                }
+                else{
+                    JOptionPane.showMessageDialog(gradePanel,"No hurry, you will access in the future.","Access Failure",JOptionPane.PLAIN_MESSAGE);
+                }
             }
         });
         gradePanel.getButton3().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cards, "functionPanel");
+                if(Integer.parseInt(currentUser.getDegree()) >= 3){
+                    currentUser.currentgrade =  "3";
+                    cardLayout.show(cards, "functionPanel");
+                }
+                else{
+                    JOptionPane.showMessageDialog(gradePanel,"No hurry, you will access in the future.","Access Failure",JOptionPane.PLAIN_MESSAGE);
+                }
             }
         });
         gradePanel.getButton4().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cards, "functionPanel");
+                if(Integer.parseInt(currentUser.getDegree()) >= 4){
+                    currentUser.currentgrade =  "4";
+                    cardLayout.show(cards, "functionPanel");
+                }
+                else{
+                    JOptionPane.showMessageDialog(gradePanel,"No hurry, you will access in the future.","Access Failure",JOptionPane.PLAIN_MESSAGE);
+                }
             }
         });
         gradePanel.getButton5().addActionListener(new ActionListener() {
@@ -353,7 +372,7 @@ public class MainFrame extends JFrame{
                 control_initialize.newFile(currentUser.getStudentID(), "Achievement");
                 currentUser.achievementList.remove(currentUser.achievementList.size()-1);
                 for(int i=0;i<currentUser.achievementList.size();i++){
-                    achievement_control.writeUserFile(currentUser.getStudentID(),currentUser.achievementList.get(i).getAchievementName(),currentUser.achievementList.get(i).getDate());
+                    achievement_control.writeUserFile(currentUser.getStudentID(),currentUser.achievementList.get(i).getAchievementName(),currentUser.achievementList.get(i).getDate(),currentUser.currentgrade);
                 }
                 currentUser.achievementList = achievement_control.Read_AchievementJson(currentUser.getStudentID());
                 JScrollPane p1=ExtraclassPanel.createProjectsPanel(currentUser);
@@ -412,7 +431,7 @@ public class MainFrame extends JFrame{
                 String year=extraImport2.getYearField();
                 if(name.equals("")||year.equals("")){cardLayout.show(cards, "extraclassPanel");}
                 else {
-                achievement_control.writeUserFile(currentUser.getStudentID(),name,year);
+                achievement_control.writeUserFile(currentUser.getStudentID(),name,year,currentUser.currentgrade);
                 currentUser.achievementList = achievement_control.Read_AchievementJson(currentUser.getStudentID());
                 extraclassPanel.remove(9);
                 extraclassPanel.remove(9);

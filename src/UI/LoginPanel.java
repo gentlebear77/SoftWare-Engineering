@@ -2,7 +2,9 @@ package UI;
 
 import java.awt.*;
 import javax.swing.*;
-
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class LoginPanel extends JPanel{
 
@@ -11,17 +13,20 @@ public class LoginPanel extends JPanel{
     private JButton registerButton;
     private JTextField usernameField;
     private JPasswordField passwordField;
+    private BufferedImage bg;
 
     public LoginPanel() {
+        //background
+        try {
+            bg = ImageIO.read(getClass().getResource("/images/background.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setLayout(null);
-
-        backgroundLabel = new JLabel(new ImageIcon("/images/background.jpg"));
-        add(backgroundLabel); 
-        backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
 
         JLabel titleLabel = new JLabel("Welcome! Begin your diary!");
         titleLabel.setFont(new Font("Arial", Font.PLAIN, 28));
-        titleLabel.setBounds(100, 180, 475, 40);
+        titleLabel.setBounds(60, 180, 475, 40);
 
         JLabel usernameLabel = new JLabel("Username:");
         usernameLabel.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -78,5 +83,13 @@ public class LoginPanel extends JPanel{
 
     public String getPassword() {
         return passwordField.getText();
+    }
+
+    //background
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // draw image
+        g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
     }
 }

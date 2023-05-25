@@ -3,6 +3,9 @@ package UI;
 import java.awt.*;
 import javax.swing.*;
 import Control.Student;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class GradePanel extends JPanel {
 	
@@ -13,16 +16,23 @@ public class GradePanel extends JPanel {
     private JButton button3;
     private JButton button4;
     private JButton button5;
-    private int grade=2;
+    private int grade=1;
     private int nowLocation;
+    private BufferedImage bg;
 
     public GradePanel(Student currentUser) {
+        //background
+        try {
+            bg = ImageIO.read(getClass().getResource("/images/gradepanel.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setLayout(null);
 
 
         JLabel titleLabel = new JLabel("Let's Go");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 35));
-        titleLabel.setBounds(400,150,300,60);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 60));
+        titleLabel.setBounds(350,150,300,60);
 
         exitButton = new JButton("Exit");
         exitButton.setFont(new Font("Arial", Font.BOLD, 13));
@@ -35,34 +45,42 @@ public class GradePanel extends JPanel {
         personButton.setContentAreaFilled(false);
         personButton.setBorderPainted(false);
 
-        button1 = new JButton("1");
-        button1.setBounds(50, 300, 50, 30);
+        button1 = new JButton("Year 1");
+        button1.setBounds(120, 425, 80, 30);
 
-        button2 = new JButton("2");
-        button2.setBounds(250, 300, 50, 30);
+        button2 = new JButton("Year 2");
+        button2.setBounds(320, 425, 80, 30);
 
-        button3 = new JButton("3");
-        button3.setBounds(450, 300, 50, 30);
+        button3 = new JButton("Year 3");
+        button3.setBounds(520, 425, 80, 30);
 
-        button4 = new JButton("4");
-        button4.setBounds(650, 300, 50, 30);
+        button4 = new JButton("Year 4");
+        button4.setBounds(720, 425, 80, 30);
 
         switch(grade) {
             case 1:
-                nowLocation = 150;
+                nowLocation = 30;
                 break;
             case 2:
-                nowLocation = 350;
+                nowLocation = 225;
                 break;
             case 3:
-                nowLocation = 550;
+                nowLocation = 425;
                 break;
             case 4:
-                nowLocation = 750;
+                nowLocation = 625;
                 break;
         }
-        button5 = new JButton("Now");
-        button5.setBounds(nowLocation, 300, 80, 30);
+//        ImageIcon icon = new ImageIcon("/images/boat.png");
+//        icon.setImage(icon.getImage().getScaledInstance(100,100, 0));
+        button5 = new JButton("NOW");
+        button5.setBounds(nowLocation, 425, 70, 30);
+//        button5.setIcon(icon);
+//        // 设置按钮的首选大小
+//        button5.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+//        // 设置按钮的位置和大小
+//        button5.setBounds(50, 50, icon.getIconWidth(), icon.getIconHeight());
+
         
         add(exitButton);
         add(personButton);
@@ -100,5 +118,12 @@ public class GradePanel extends JPanel {
 
     public JButton getButton5() {
         return button5;
+    }
+    //background
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // draw image
+        g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
     }
 }

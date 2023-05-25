@@ -32,12 +32,12 @@ public class InclassImport extends JPanel {
 
         JPanel jgrade = new JPanel(); 
         jgrade.setBounds(30,195,400,40);
-        JLabel grade = new JLabel(" Grade:          ");   
+        JLabel grade = new JLabel("Grade:             ");
         grade.setFont(new Font("Arial", Font.PLAIN, 15));
-        cgrade.addItem("      1     ");
-        cgrade.addItem("      2     ");
-        cgrade.addItem("      3     ");
-        cgrade.addItem("      4     ");
+        cgrade.addItem("1");
+        cgrade.addItem("2");
+        cgrade.addItem("3");
+        cgrade.addItem("4");
         jgrade.add(grade);
         jgrade.add(cgrade);
 

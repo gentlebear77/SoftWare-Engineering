@@ -8,6 +8,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class InclassPanel extends JPanel{
 
@@ -16,6 +19,8 @@ public class InclassPanel extends JPanel{
     private JButton importButton1;
     private JButton importButton2;
     private JButton deleteButton;
+    private BufferedImage bg;
+
 //    public JComboBox<String> comboBox;
     String[] columnNames1 = {"Number", "Module", "Grade", "Credit", "Mark"};
     TablePanel moduletable = new TablePanel(columnNames1);
@@ -25,6 +30,12 @@ public class InclassPanel extends JPanel{
 
 
     public InclassPanel() {
+        //background
+        try {
+            bg = ImageIO.read(getClass().getResource("/images/inclassbg.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setLayout(null);
 
 //        comboBox = new JComboBox<>();
@@ -38,7 +49,7 @@ public class InclassPanel extends JPanel{
         backButton = new JButton("Back");//a back-arrow picture
         backButton.setBounds(0,0,70,30);
         backButton.setContentAreaFilled(false);
-        
+
         exitButton = new JButton("Exit");
         exitButton.setFont(new Font("Arial", Font.BOLD, 13));
         exitButton.setBounds(891,0,70,30);
@@ -47,16 +58,16 @@ public class InclassPanel extends JPanel{
 
         JLabel titleLabel = new JLabel("In-Class Learning");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 25));
-        titleLabel.setBounds(70,50,250,40); 
-        
-        importButton1 = new JButton("Import Module");
-        importButton1.setBounds(330,60,150,25);
-        
-        importButton2 = new JButton("Import Total Score");
-        importButton2.setBounds(750,60,150,25);
+        titleLabel.setBounds(70,50,250,40);
 
-        deleteButton=new JButton("Delete the newest record");
-        deleteButton.setBounds(330,570,180,30);
+        importButton1 = new JButton("Import");   //import module
+        importButton1.setBounds(200,570,100,25);
+
+        importButton2 = new JButton("Import");   //import score
+        importButton2.setBounds(750,570,100,25);
+
+        deleteButton=new JButton("Delete");
+        deleteButton.setBounds(380,570,100,25);
 
         moduletable.setBorder(new EmptyBorder(5, 5, 5, 5));
         moduletable.setBounds(50,110,600,450);
@@ -67,7 +78,7 @@ public class InclassPanel extends JPanel{
         scoretable.addRow(new String[]{"Average Score of Postgraduate: 89"});
         scoretable.addRow(new String[]{"GPA: 3.74/4"});
         scoretable.addRow(new String[]{"Rank: 17/312"});
-        
+
         add(backButton);
         add(exitButton);
         add(titleLabel);
@@ -123,9 +134,13 @@ public class InclassPanel extends JPanel{
 
                 moduletable.addRow(new String[]{user.moduleList.get(i).getModuleNum(), user.moduleList.get(i).getModuleName(), user.moduleList.get(i).getGrade() + "", user.moduleList.get(i).getCredit() + "", user.moduleList.get(i).getMark() + ""});
             }
+            if(user.totalList.size()>0){
             Total preTotal=user.totalList.get(user.totalList.size()-1);
             user.totalList.remove(user.totalList.size()-1);
-            user.totalList.add(new Total(sum/user.moduleList.size(),wSum/creditSum,String.format("%.1f",GSum/creditSum)+"/4.0",preTotal.getRank()));
+            user.totalList.add(new Total(sum/user.moduleList.size(),wSum/creditSum,String.format("%.1f",GSum/creditSum)+"/4.0",preTotal.getRank()));}
+            else{
+                user.totalList.add(new Total(sum/user.moduleList.size(),wSum/creditSum,String.format("%.1f",GSum/creditSum)+"/4.0",""));
+            }
             this.Update_Score(user);
         }
     }
@@ -143,5 +158,12 @@ public class InclassPanel extends JPanel{
             scoretable.addRow(new String[]{"GPA: "+t.getGPA()});
             scoretable.addRow(new String[]{"Rank: "+t.getRank()});
         }
+    }
+    //background
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // draw image
+        g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
     }
 }

@@ -32,6 +32,7 @@ public class Student {
     public ArrayList<Achievement> achievementList;
     public ArrayList<Representative> representativeList;
     public ArrayList<Volunteer> volunteerList;
+    public String currentgrade;
 
     public String getStudentID() {
         return this.studentID;

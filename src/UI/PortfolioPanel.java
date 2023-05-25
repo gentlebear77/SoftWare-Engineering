@@ -5,14 +5,23 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 public class PortfolioPanel extends JPanel{
 
     private JButton backButton;
 	private JButton exitButton;
 	private JButton importButton1;
+    private BufferedImage bg;
 
     public PortfolioPanel() {
+        //background
+        try {
+            bg = ImageIO.read(getClass().getResource("/images/portbg.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setLayout(null);
         //setLayout(new BorderLayout());
         
@@ -83,6 +92,13 @@ public class PortfolioPanel extends JPanel{
         return exitButton;
     }
 
+    //background
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // draw image
+        g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
+    }
     
 }
 

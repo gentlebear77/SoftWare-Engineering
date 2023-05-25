@@ -3,9 +3,15 @@ package UI;
 import Control.Student;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class ExtraclassPanel extends JPanel{
 
@@ -17,8 +23,15 @@ public class ExtraclassPanel extends JPanel{
     private JButton deleteButton2;
     public JScrollPane panel1;
     public JScrollPane panel2;
+    private BufferedImage bg;
 
     public ExtraclassPanel(Student user) {
+        //background
+        try {
+            bg = ImageIO.read(getClass().getResource("/images/extraclassbg.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setLayout(null);
         
         backButton = new JButton("Back");//a back-arrow picture
@@ -54,17 +67,17 @@ public class ExtraclassPanel extends JPanel{
         panel2.setBounds(520,190,340,360);
         panel2.setBorder(BorderFactory.createEtchedBorder());
         
-        importButton1 = new JButton("Import Project");
-        importButton1.setBounds(350,60,130,25);
+        importButton1 = new JButton("Import");  //Import Project
+        importButton1.setBounds(130,570,100,25);
         
-        importButton2 = new JButton("Import Achievements");
-        importButton2.setBounds(750,60,180,25);
+        importButton2 = new JButton("Import");   //Import Achievements
+        importButton2.setBounds(570,570,100,25);
 
-        deleteButton1=new JButton("Delete the newest project");
-        deleteButton1.setBounds(100,570,200,30);
+        deleteButton1=new JButton("Delete");   //Delete the newest project
+        deleteButton1.setBounds(280,570,100,25);
 
-        deleteButton2=new JButton("Delete the newest achievement");
-        deleteButton2.setBounds(520,570,200,30);
+        deleteButton2=new JButton("Delete");   //Delete the newest achievement
+        deleteButton2.setBounds(720,570,100,25);
 
         add(backButton);
         add(exitButton);
@@ -164,5 +177,12 @@ public class ExtraclassPanel extends JPanel{
         Border border = new LineBorder(Color.LIGHT_GRAY, 1);
         awardPanel.setBorder(border);
         return awardPanel;
+    }
+    //background
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // draw image
+        g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
     }
 }

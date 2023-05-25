@@ -118,26 +118,27 @@ public class InclassPanel extends JPanel{
         if(user.getStudentID()!=null) {
 
             for (int i = 0; i < user.moduleList.size(); i++) {
+                if(user.currentgrade.equals(user.moduleList.get(i).getGrade()) || user.currentgrade=="0"){
+                    System.out.println(i+":"+user.moduleList.get(i).getMark());
+                    sum=sum+user.moduleList.get(i).getMark();
+                    wSum=wSum+user.moduleList.get(i).getMark()*user.moduleList.get(i).getCredit();
+                    if(user.moduleList.get(i).getMark()<100&&user.moduleList.get(i).getMark()>=60){
+                        GSum=GSum+(4-(3*Math.pow(100-user.moduleList.get(i).getMark(),2)/1600))*user.moduleList.get(i).getCredit();
+                    } else if (user.moduleList.get(i).getMark()>=100) {
+                        GSum=GSum+4*user.moduleList.get(i).getCredit();
+                    } else if(user.moduleList.get(i).getMark()==60){
+                        GSum=GSum+1*user.moduleList.get(i).getCredit();
+                    } else{;}
+                    creditSum=creditSum+user.moduleList.get(i).getCredit();
 
-                System.out.println(i+":"+user.moduleList.get(i).getMark());
-                sum=sum+user.moduleList.get(i).getMark();
-                wSum=wSum+user.moduleList.get(i).getMark()*user.moduleList.get(i).getCredit();
-                if(user.moduleList.get(i).getMark()<100&&user.moduleList.get(i).getMark()>=60){
-                GSum=GSum+(4-(3*Math.pow(100-user.moduleList.get(i).getMark(),2)/1600))*user.moduleList.get(i).getCredit();
-                } else if (user.moduleList.get(i).getMark()>=100) {
-                    GSum=GSum+4*user.moduleList.get(i).getCredit();
-                } else if(user.moduleList.get(i).getMark()==60){
-                    GSum=GSum+1*user.moduleList.get(i).getCredit();
-                } else{;}
-                creditSum=creditSum+user.moduleList.get(i).getCredit();
+                    moduletable.addRow(new String[]{user.moduleList.get(i).getModuleNum(), user.moduleList.get(i).getModuleName(), user.moduleList.get(i).getGrade() + "", user.moduleList.get(i).getCredit() + "", user.moduleList.get(i).getMark() + ""});
 
-
-                moduletable.addRow(new String[]{user.moduleList.get(i).getModuleNum(), user.moduleList.get(i).getModuleName(), user.moduleList.get(i).getGrade() + "", user.moduleList.get(i).getCredit() + "", user.moduleList.get(i).getMark() + ""});
+                }
             }
             if(user.totalList.size()>0){
-            Total preTotal=user.totalList.get(user.totalList.size()-1);
-            user.totalList.remove(user.totalList.size()-1);
-            user.totalList.add(new Total(sum/user.moduleList.size(),wSum/creditSum,String.format("%.1f",GSum/creditSum)+"/4.0",preTotal.getRank()));}
+                Total preTotal=user.totalList.get(user.totalList.size()-1);
+                user.totalList.remove(user.totalList.size()-1);
+                user.totalList.add(new Total(sum/user.moduleList.size(),wSum/creditSum,String.format("%.1f",GSum/creditSum)+"/4.0",preTotal.getRank()));}
             else{
                 user.totalList.add(new Total(sum/user.moduleList.size(),wSum/creditSum,String.format("%.1f",GSum/creditSum)+"/4.0",""));
             }

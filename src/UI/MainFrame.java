@@ -42,7 +42,7 @@ public class MainFrame extends JFrame{
 
         LoginPanel loginPanel = new LoginPanel();
         RegisterPanel registerPanel = new RegisterPanel();
-        GradePanel gradePanel = new GradePanel(currentUser);
+        GradePanel gradePanel = new GradePanel();
         FunctionPanel functionPanel = new FunctionPanel();
         InclassPanel inclassPanel = new InclassPanel();
         InclassImport inclassImport = new InclassImport();
@@ -80,6 +80,7 @@ public class MainFrame extends JFrame{
                     currentUser.representativeList = representative_control.Read_RepresentativeJson(currentUser.getStudentID());
                     currentUser.volunteerList = volunteer_control.Read_VolunteerJson(currentUser.getStudentID());
                     System.out.println(currentUser.toString()+"!!!");
+                    gradePanel.Update(currentUser);
                     cardLayout.show(cards, "gradePanel");
                 }else{
                     JOptionPane.showMessageDialog(loginPanel,"Password and username do not match","Login failed",JOptionPane.PLAIN_MESSAGE);
@@ -95,6 +96,7 @@ public class MainFrame extends JFrame{
         registerPanel.getFinishButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(control_initialize.signUp(registerPanel.getUsername(),registerPanel.getPassword(),registerPanel.getMajor(),registerPanel.getRealname(),registerPanel.getGrade())){
+
                     cardLayout.show(cards, "loginPanel");
                 }
 
@@ -115,6 +117,7 @@ public class MainFrame extends JFrame{
         gradePanel.getButton1().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 currentUser.currentgrade =  "1";
+
                 cardLayout.show(cards, "functionPanel");
             }
         });
@@ -122,6 +125,7 @@ public class MainFrame extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(Integer.parseInt(currentUser.getDegree()) >= 2){
                     currentUser.currentgrade =  "2";
+                    gradePanel.Update(currentUser);
                     cardLayout.show(cards, "functionPanel");
                 }
                 else{
@@ -133,6 +137,7 @@ public class MainFrame extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(Integer.parseInt(currentUser.getDegree()) >= 3){
                     currentUser.currentgrade =  "3";
+                    gradePanel.Update(currentUser);
                     cardLayout.show(cards, "functionPanel");
                 }
                 else{
@@ -144,6 +149,8 @@ public class MainFrame extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(Integer.parseInt(currentUser.getDegree()) >= 4){
                     currentUser.currentgrade =  "4";
+                    gradePanel.Update(currentUser);
+
                     cardLayout.show(cards, "functionPanel");
                 }
                 else{
@@ -153,6 +160,7 @@ public class MainFrame extends JFrame{
         });
         gradePanel.getButton5().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                currentUser.currentgrade =  "0";
                 cardLayout.show(cards, "functionPanel");
             }
         });
@@ -264,7 +272,7 @@ public class MainFrame extends JFrame{
             public void actionPerformed(ActionEvent e){
                 control_initialize.newFile(currentUser.getStudentID(), "Module");
                 currentUser.moduleList.remove(currentUser.moduleList.size()-1);
-                for(int i=0;i<currentUser.moduleList.size();i++){
+                for(int i=0 ; i<currentUser.moduleList.size() ; i++){
                     module_control.writeUserFile(currentUser.getStudentID(),currentUser.moduleList.get(i).getModuleNum(),currentUser.moduleList.get(i).getModuleName(),currentUser.moduleList.get(i).getGrade(),currentUser.moduleList.get(i).getCredit(),currentUser.moduleList.get(i).getMark());
                 }
                 inclassPanel.Update_Module(currentUser);
@@ -278,12 +286,15 @@ public class MainFrame extends JFrame{
                 String name=inclassImport.getnameField();
                 double credit=inclassImport.getcreditField();
                 double mark=inclassImport.getmarkField();
-                if(num.equals("")||name.equals("")||credit<0||mark<0){cardLayout.show(cards, "inclassPanel");}
+                if(num.equals("")||name.equals("")||credit<0||mark<0){
+                    JOptionPane.showMessageDialog(inclassImport, "Ensure no invalid number and empty field", "Error", JOptionPane.ERROR_MESSAGE);
+                    cardLayout.show(cards, "inclassPanel");
+                }
                 else{
-                module_control.writeUserFile(currentUser.getStudentID(),num,name,inclassImport.getGrade(),credit,mark);
-                currentUser.moduleList = module_control.Read_ModuleJson(currentUser.getStudentID());
-                inclassPanel.Update_Module(currentUser);
-                cardLayout.show(cards, "inclassPanel");}
+                    module_control.writeUserFile(currentUser.getStudentID(),num,name,inclassImport.getGrade(),credit,mark);
+                    currentUser.moduleList = module_control.Read_ModuleJson(currentUser.getStudentID());
+                    inclassPanel.Update_Module(currentUser);
+                    cardLayout.show(cards, "inclassPanel");}
             }
         });
 
@@ -349,7 +360,7 @@ public class MainFrame extends JFrame{
                 control_initialize.newFile(currentUser.getStudentID(), "Project");
                 currentUser.projectList.remove(currentUser.projectList.size()-1);
                 for(int i=0;i<currentUser.projectList.size();i++){
-                    project_control.writeUserFile(currentUser.getStudentID(),currentUser.projectList.get(i).getProjectName(),currentUser.projectList.get(i).getDate(),currentUser.projectList.get(i).getContent());
+                    project_control.writeUserFile(currentUser.getStudentID(),currentUser.projectList.get(i).getProjectName(),currentUser.projectList.get(i).getDate(),currentUser.projectList.get(i).getContent(),currentUser.currentgrade);
                 }
                 currentUser.projectList = project_control.Read_ProjectJson(currentUser.getStudentID());
                 JScrollPane p1=ExtraclassPanel.createProjectsPanel(currentUser);
@@ -394,22 +405,25 @@ public class MainFrame extends JFrame{
                 String name=extraImport1.getNameField();
                 String year=extraImport1.getYearField();
                 String cont=extraImport1.getContentField();
-                if(name.equals("")||name.equals("")||cont.equals("")){cardLayout.show(cards, "extraclassPanel");}
+                if(name.equals("")||name.equals("")||cont.equals("")){
+                    JOptionPane.showMessageDialog(extraImport1,"yyyy-mm-dd wanted, where yyyy for years, mm for months, dd for days.\nEnsure no empty field.","Error",JOptionPane.ERROR_MESSAGE);
+                    cardLayout.show(cards, "extraclassPanel");
+                }
                 else{
-                project_control.writeUserFile(currentUser.getStudentID(),name,year,cont);
-                currentUser.projectList = project_control.Read_ProjectJson(currentUser.getStudentID());
-                extraclassPanel.remove(9);
-                extraclassPanel.remove(9);
-                JScrollPane p1=ExtraclassPanel.createProjectsPanel(currentUser);
-                p1.setBounds(90,190,340,360);
-                p1.setBorder(BorderFactory.createEtchedBorder());
-                extraclassPanel.add(p1);
-                JScrollPane p2=ExtraclassPanel.createAwardsPanel(currentUser);
-                p2.setBounds(520,190,340,360);
-                p2.setBorder(BorderFactory.createEtchedBorder());
-                extraclassPanel.add(p2);
+                    project_control.writeUserFile(currentUser.getStudentID(),name,year,cont,currentUser.currentgrade);
+                    currentUser.projectList = project_control.Read_ProjectJson(currentUser.getStudentID());
+                    extraclassPanel.remove(9);
+                    extraclassPanel.remove(9);
+                    JScrollPane p1=ExtraclassPanel.createProjectsPanel(currentUser);
+                    p1.setBounds(90,190,340,360);
+                    p1.setBorder(BorderFactory.createEtchedBorder());
+                    extraclassPanel.add(p1);
+                    JScrollPane p2=ExtraclassPanel.createAwardsPanel(currentUser);
+                    p2.setBounds(520,190,340,360);
+                    p2.setBorder(BorderFactory.createEtchedBorder());
+                    extraclassPanel.add(p2);
 
-                cardLayout.show(cards, "extraclassPanel");}
+                    cardLayout.show(cards, "extraclassPanel");}
             }
         });
 
@@ -429,22 +443,24 @@ public class MainFrame extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String name=extraImport2.getNameField();
                 String year=extraImport2.getYearField();
-                if(name.equals("")||year.equals("")){cardLayout.show(cards, "extraclassPanel");}
+                if(name.equals("")||year.equals("")){
+                    JOptionPane.showMessageDialog(extraImport1,"yyyy-mm-dd wanted, where yyyy for years, mm for months, dd for days.\nEnsure no empty field.","Error",JOptionPane.ERROR_MESSAGE);
+                    cardLayout.show(cards, "extraclassPanel");}
                 else {
-                achievement_control.writeUserFile(currentUser.getStudentID(),name,year,currentUser.currentgrade);
-                currentUser.achievementList = achievement_control.Read_AchievementJson(currentUser.getStudentID());
-                extraclassPanel.remove(9);
-                extraclassPanel.remove(9);
-                JScrollPane p1=ExtraclassPanel.createProjectsPanel(currentUser);
-                p1.setBounds(90,190,340,360);
-                p1.setBorder(BorderFactory.createEtchedBorder());
-                extraclassPanel.add(p1);
-                JScrollPane p2=ExtraclassPanel.createAwardsPanel(currentUser);
-                p2.setBounds(520,190,340,360);
-                p2.setBorder(BorderFactory.createEtchedBorder());
-                extraclassPanel.add(p2);
+                    achievement_control.writeUserFile(currentUser.getStudentID(),name,year,currentUser.currentgrade);
+                    currentUser.achievementList = achievement_control.Read_AchievementJson(currentUser.getStudentID());
+                    extraclassPanel.remove(9);
+                    extraclassPanel.remove(9);
+                    JScrollPane p1=ExtraclassPanel.createProjectsPanel(currentUser);
+                    p1.setBounds(90,190,340,360);
+                    p1.setBorder(BorderFactory.createEtchedBorder());
+                    extraclassPanel.add(p1);
+                    JScrollPane p2=ExtraclassPanel.createAwardsPanel(currentUser);
+                    p2.setBounds(520,190,340,360);
+                    p2.setBorder(BorderFactory.createEtchedBorder());
+                    extraclassPanel.add(p2);
 
-                cardLayout.show(cards, "extraclassPanel");}
+                    cardLayout.show(cards, "extraclassPanel");}
             }
         });
 
@@ -490,7 +506,7 @@ public class MainFrame extends JFrame{
                 control_initialize.newFile(currentUser.getStudentID(), "Representative");
                 currentUser.representativeList.remove(currentUser.representativeList.size()-1);
                 for(int i=0;i<currentUser.representativeList.size();i++){
-                    representative_control.writeUserFile(currentUser.getStudentID(),currentUser.representativeList.get(i).getRepresentativeName(),currentUser.representativeList.get(i).getDate());
+                    representative_control.writeUserFile(currentUser.getStudentID(),currentUser.representativeList.get(i).getRepresentativeName(),currentUser.representativeList.get(i).getDate(),currentUser.currentgrade);
                 }
                 currentUser.representativeList = representative_control.Read_RepresentativeJson(currentUser.getStudentID());
                 JScrollPane p1=campusPanel.createRepPanel(currentUser);
@@ -514,7 +530,7 @@ public class MainFrame extends JFrame{
                 control_initialize.newFile(currentUser.getStudentID(), "Volunteer");
                 currentUser.volunteerList.remove(currentUser.volunteerList.size()-1);
                 for(int i=0;i<currentUser.volunteerList.size();i++){
-                    volunteer_control.writeUserFile(currentUser.getStudentID(),currentUser.volunteerList.get(i).getVolunteerName(),currentUser.volunteerList.get(i).getDate(),currentUser.volunteerList.get(i).getDuration());
+                    volunteer_control.writeUserFile(currentUser.getStudentID(),currentUser.volunteerList.get(i).getVolunteerName(),currentUser.volunteerList.get(i).getDate(),currentUser.volunteerList.get(i).getDuration(),currentUser.currentgrade);
                 }
                 currentUser.volunteerList = volunteer_control.Read_VolunteerJson(currentUser.getStudentID());
                 JScrollPane p1=campusPanel.createRepPanel(currentUser);
@@ -536,22 +552,23 @@ public class MainFrame extends JFrame{
                 String name=campusImport.getNameField();
                 String year=campusImport.getYearField();
                 if(name.equals("")||year.equals("")){
+                    JOptionPane.showMessageDialog(extraImport1,"yyyy-mm-dd wanted, where yyyy for years, mm for months, dd for days.\nEnsure no empty field.","Error",JOptionPane.ERROR_MESSAGE);
                     cardLayout.show(cards, "campusPanel");
                 }else{
-                representative_control.writeUserFile(currentUser.getStudentID(),name,year);
-                currentUser.representativeList = representative_control.Read_RepresentativeJson(currentUser.getStudentID());
+                    representative_control.writeUserFile(currentUser.getStudentID(),name,year,currentUser.currentgrade);
+                    currentUser.representativeList = representative_control.Read_RepresentativeJson(currentUser.getStudentID());
 
-                campusPanel.remove(9);
-                campusPanel.remove(9);
-                JScrollPane p1=campusPanel.createRepPanel(currentUser);
-                p1.setBounds(90,190,340,360);
-                p1.setBorder(BorderFactory.createEtchedBorder());
-                campusPanel.add(p1);
-                JScrollPane p2=campusPanel.createVolunPanel(currentUser);
-                p2.setBounds(520,190,340,360);
-                p2.setBorder(BorderFactory.createEtchedBorder());
-                campusPanel.add(p2);
-                cardLayout.show(cards, "campusPanel");}
+                    campusPanel.remove(9);
+                    campusPanel.remove(9);
+                    JScrollPane p1=campusPanel.createRepPanel(currentUser);
+                    p1.setBounds(90,190,340,360);
+                    p1.setBorder(BorderFactory.createEtchedBorder());
+                    campusPanel.add(p1);
+                    JScrollPane p2=campusPanel.createVolunPanel(currentUser);
+                    p2.setBounds(520,190,340,360);
+                    p2.setBorder(BorderFactory.createEtchedBorder());
+                    campusPanel.add(p2);
+                    cardLayout.show(cards, "campusPanel");}
             }
         });
 
@@ -572,24 +589,26 @@ public class MainFrame extends JFrame{
                 String name=campusImport2.getNameField();
                 String year=campusImport2.getYearField();
                 String dur=campusImport2.getDurationField();
-                if(name.equals("")||year.equals("")||dur.equals("")){cardLayout.show(cards, "campusPanel");}
+                if(name.equals("")||year.equals("")||dur.equals("")){
+                    JOptionPane.showMessageDialog(extraImport1,"yyyy-mm-dd wanted, where yyyy for years, mm for months, dd for days.\nEnsure no empty field.","Error",JOptionPane.ERROR_MESSAGE);
+                    cardLayout.show(cards, "campusPanel");}
                 else{
-                volunteer_control.writeUserFile(currentUser.getStudentID(),name,year,dur);
-                currentUser.volunteerList = volunteer_control.Read_VolunteerJson(currentUser.getStudentID());
+                    volunteer_control.writeUserFile(currentUser.getStudentID(),name,year,dur,currentUser.currentgrade);
+                    currentUser.volunteerList = volunteer_control.Read_VolunteerJson(currentUser.getStudentID());
 
-                campusPanel.remove(9);
-                campusPanel.remove(9);
-                JScrollPane p1=campusPanel.createRepPanel(currentUser);
-                p1.setBounds(90,190,340,360);
-                p1.setBorder(BorderFactory.createEtchedBorder());
-                campusPanel.add(p1);
-                JScrollPane p2=campusPanel.createVolunPanel(currentUser);
-                p2.setBounds(520,190,340,360);
-                p2.setBorder(BorderFactory.createEtchedBorder());
-                campusPanel.add(p2);
+                    campusPanel.remove(9);
+                    campusPanel.remove(9);
+                    JScrollPane p1=campusPanel.createRepPanel(currentUser);
+                    p1.setBounds(90,190,340,360);
+                    p1.setBorder(BorderFactory.createEtchedBorder());
+                    campusPanel.add(p1);
+                    JScrollPane p2=campusPanel.createVolunPanel(currentUser);
+                    p2.setBounds(520,190,340,360);
+                    p2.setBorder(BorderFactory.createEtchedBorder());
+                    campusPanel.add(p2);
 
 
-                cardLayout.show(cards, "campusPanel");}
+                    cardLayout.show(cards, "campusPanel");}
             }
         });
 

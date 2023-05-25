@@ -6,6 +6,7 @@ import Control.Student;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import Control.*;
 
 public class GradePanel extends JPanel {
 	
@@ -15,12 +16,34 @@ public class GradePanel extends JPanel {
     private JButton button2;
     private JButton button3;
     private JButton button4;
-    private JButton button5;
-    private int grade=1;
+    private JButton button5= new JButton("NOW");;
+    private int grade;
     private int nowLocation;
     private BufferedImage bg;
+    public void Update(Student currentUser){
+        grade = Integer.parseInt(currentUser.getDegree());
+        System.out.println(grade);
+        switch(grade) {
+            case 1:
+                nowLocation = 30;
+                break;
+            case 2:
+                nowLocation = 225;
+                break;
+            case 3:
+                nowLocation = 425;
+                break;
+            case 4:
+                nowLocation = 625;
+                break;
+        }
+        System.out.println(nowLocation);
+        //button5 = new JButton("NOW");
+        button5.setBounds(nowLocation, 425, 70, 30);
+        add(button5);
+    }
 
-    public GradePanel(Student currentUser) {
+    public GradePanel() {
         //background
         try {
             bg = ImageIO.read(getClass().getResource("/images/gradepanel.jpg"));
@@ -56,30 +79,17 @@ public class GradePanel extends JPanel {
 
         button4 = new JButton("Year 4");
         button4.setBounds(720, 425, 80, 30);
+        System.out.println(nowLocation);
 
-        switch(grade) {
-            case 1:
-                nowLocation = 30;
-                break;
-            case 2:
-                nowLocation = 225;
-                break;
-            case 3:
-                nowLocation = 425;
-                break;
-            case 4:
-                nowLocation = 625;
-                break;
-        }
 //        ImageIcon icon = new ImageIcon("/images/boat.png");
 //        icon.setImage(icon.getImage().getScaledInstance(100,100, 0));
-        button5 = new JButton("NOW");
-        button5.setBounds(nowLocation, 425, 70, 30);
+
 //        button5.setIcon(icon);
 //        // 设置按钮的首选大小
 //        button5.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
 //        // 设置按钮的位置和大小
 //        button5.setBounds(50, 50, icon.getIconWidth(), icon.getIconHeight());
+        //button5 = new JButton("NOW");
 
         
         add(exitButton);
@@ -89,7 +99,7 @@ public class GradePanel extends JPanel {
         add(button2);
         add(button3);
         add(button4);
-        add(button5);
+
     }
     
     public JButton getExitButton() {

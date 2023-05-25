@@ -11,6 +11,8 @@ public class Project {
     private String Date;
     @JSONField(name = "Content",ordinal = 3)
     private String Content;
+    @JSONField(name = "Grade",ordinal = 4)
+    private String Grade;
 
 
     public String getProjectName() {
@@ -37,13 +39,16 @@ public class Project {
         this.Content = Content;
     }
 
-
+    public String getGrade() {
+        return Grade;
+    }
     @Override
     public String toString() {
         return "total{" +
                 "ProjectName='" + ProjectName + '\'' +
                 ", Date='" + Date + '\'' +
-                ", Content=" + Content +
+                ", Content=" + Content + '\'' +
+                ", Grade=" + Grade +
                 '}';
     }
 
@@ -53,5 +58,6 @@ public class Project {
         ProjectName = info.get(0);
         Date = info.get(1);
         Content = info.get(2);
+        Grade = info.get(3);
     }
 }

@@ -112,7 +112,7 @@ public class InclassImport extends JPanel {
             System.out.println(credit);
             return credit;
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Invalid credit value. Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(this, "Invalid credit value. Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return -1.0;
     }
@@ -126,7 +126,7 @@ public class InclassImport extends JPanel {
             double mark = Double.parseDouble(markField.getText());
             return mark;
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Invalid credit value. Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(this, "Invalid credit value. Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return -1.0;
     }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Representative_Control {
     private Representative currentRepresentative;
-    private String[] Tags={"Representative","RepresentativeName","Date","","",""};
+    private String[] Tags={"Representative","RepresentativeName","Date","Grade","",""};
 
     public void setCurrentRepresentative(Representative currentRepresentative) {
         this.currentRepresentative = currentRepresentative;
@@ -30,10 +30,11 @@ public class Representative_Control {
         return result;
     }
 
-    public boolean writeUserFile(String id, String RepresentativeName,String Date) {
+    public boolean writeUserFile(String id, String RepresentativeName,String Date,String Grade) {
         ArrayList<String> info=new ArrayList<String>();
         info.add(RepresentativeName);
         info.add(Date);
+        info.add(Grade);
         return Record_Control.writeFile(id,this.Tags,info);
     }
 }

@@ -111,12 +111,16 @@ public class ExtraclassPanel extends JPanel{
     public static JScrollPane createProjectsPanel(Student user) {
         JPanel projectsPanel = new JPanel();
         projectsPanel.setLayout(new BoxLayout(projectsPanel, BoxLayout.Y_AXIS));
+        int cnt = 0;
         if(user.getStudentID()!=null){
             for (int i = 0; i < user.projectList.size(); i++) {
-                projectsPanel.add(createProject(user.projectList.get(i).getProjectName(), user.projectList.get(i).getDate(), user.projectList.get(i).getContent()));
+                if(user.currentgrade.equals(user.projectList.get(i).getGrade()) || user.currentgrade=="0"){
+                    cnt++;
+                    projectsPanel.add(createProject(user.projectList.get(i).getProjectName(), user.projectList.get(i).getDate(), user.projectList.get(i).getContent()));
+                }
             }
             //projectsPanel.add(createProject("Project 1", "2022-04-11", "This is a project description."));
-            projectsPanel.setPreferredSize(new Dimension(250, 150 * user.projectList.size()));
+            projectsPanel.setPreferredSize(new Dimension(250, 150 * cnt));
         }
         JScrollPane scrollPane = new JScrollPane(projectsPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -151,12 +155,19 @@ public class ExtraclassPanel extends JPanel{
         awardsPanel.setLayout(new BoxLayout(awardsPanel, BoxLayout.Y_AXIS));
         //This i can be set as a variable that indicate the max number of the item.
         //some back code can set the i use an variable max number.
+        int cnt = 0;
         if(user.getStudentID()!=null){
             for (int i = 0; i < user.achievementList.size(); i++) {
-                awardsPanel.add(createAward(user.achievementList.get(i).getAchievementName(), user.achievementList.get(i).getDate()));
+                System.out.println(user.currentgrade);
+                System.out.println(user.achievementList.get(i).getGrade());
+                if(user.currentgrade.equals(user.achievementList.get(i).getGrade()) || user.currentgrade=="0"){
+                    cnt++;
+                    awardsPanel.add(createAward(user.achievementList.get(i).getAchievementName(), user.achievementList.get(i).getDate()));
+                }
+
             }
             //This 50*max number of item ,Here set as 10.
-            awardsPanel.setPreferredSize(new Dimension(200, 50 * user.achievementList.size()));
+            awardsPanel.setPreferredSize(new Dimension(200, 50 * cnt));
         }
         JScrollPane scrollPane = new JScrollPane(awardsPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

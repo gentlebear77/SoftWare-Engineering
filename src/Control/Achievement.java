@@ -28,12 +28,15 @@ public class Achievement {
         this.Date = Date;
     }
 
-
+    public String getGrade() {
+        return Grade;
+    }
     @Override
     public String toString() {
         return "total{" +
                 "AchievementName='" + AchievementName + '\'' +
                 ", Date='" + Date + '\'' +
+                ", Grade='" + Grade +
                 '}';
     }
 

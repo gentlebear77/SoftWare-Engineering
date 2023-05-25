@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Project_Control {
     private Project currentProject;
-    private String[] Tags=new String[]{"Project","ProjectName","Content","Date","",""};
+    private String[] Tags=new String[]{"Project","ProjectName","Content","Date","Grade",""};
 
     public void setCurrentProject(Project currentProject) {
         this.currentProject = currentProject;
@@ -31,11 +31,12 @@ public class Project_Control {
     }
 
 
-    public boolean writeUserFile(String id, String ProjectName,String Date,String Content) {
+    public boolean writeUserFile(String id, String ProjectName,String Date,String Content,String Grade) {
         ArrayList<String> info=new ArrayList<String>();
         info.add(ProjectName);
         info.add(Date);
         info.add(Content);
+        info.add(Grade);
         return Record_Control.writeFile(id,this.Tags,info);
     }
 }

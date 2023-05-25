@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Volunteer_Control {
     private Volunteer currentVolunteer;
-    private String[] Tags={"Volunteer","VolunteerName","Duration","Date","",""};
+    private String[] Tags={"Volunteer","VolunteerName","Duration","Date","Grade",""};
 
     public void setCurrentVolunteer(Volunteer currentVolunteer) {
         this.currentVolunteer = currentVolunteer;
@@ -32,11 +32,12 @@ public class Volunteer_Control {
 
 
 
-    public boolean writeUserFile(String id, String VolunteerName,String Date,String Duration) {
+    public boolean writeUserFile(String id, String VolunteerName,String Date,String Duration,String Grade) {
         ArrayList<String> info=new ArrayList<String>();
         info.add(VolunteerName);
         info.add(Date);
         info.add(Duration);
+        info.add(Grade);
         return Record_Control.writeFile(id,this.Tags,info);
     }
 }

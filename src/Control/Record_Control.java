@@ -2,7 +2,7 @@ package Control;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONReader;
-
+import java.util.LinkedHashMap;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -47,11 +47,16 @@ public class Record_Control {
         }
     }
     public static boolean writeFile(String id, String[] tags,ArrayList<String> info) {
-        JSONObject jsonObj = new JSONObject();
-        for(int i=0;i<info.size();i++){
-            jsonObj.put(tags[i+1], info.get(i));
+        LinkedHashMap<String, Object> linkedHashMap = new LinkedHashMap<>();
+        for (int i = 0; i < info.size(); i++) {
+            linkedHashMap.put(tags[i + 1], info.get(i));
         }
-
+        JSONObject jsonObj = new JSONObject(linkedHashMap);
+        //JSONObject jsonObj = new JSONObject();
+        //for(int i=0;i<info.size();i++){
+          //  jsonObj.put(tags[i+1], info.get(i));
+        //}
+        System.out.println(jsonObj);
         try {
             String filePath = "src/users/" + id + "/"+tags[0]+".json";
 

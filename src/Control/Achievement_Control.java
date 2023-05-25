@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Achievement_Control {
     private Achievement currentAchievement;
-    private String[] Tags={"Achievement","AchievementName","Date","","",""};
+    private String[] Tags={"Achievement","AchievementName","Date","Grade","",""};
 
     public void setCurrentAchievement(Achievement currentAchievement) {
         this.currentAchievement = currentAchievement;
@@ -37,6 +37,7 @@ public class Achievement_Control {
         info.add(AchievementName);
         info.add(Date);
         info.add(Grade);
+
         return Record_Control.writeFile(id,this.Tags,info);
     }
 }

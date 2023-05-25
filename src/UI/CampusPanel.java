@@ -109,13 +109,18 @@ public class CampusPanel extends JPanel{
     public static JScrollPane createRepPanel(Student user) {
         JPanel repPanel = new JPanel();
         repPanel.setLayout(new BoxLayout(repPanel, BoxLayout.Y_AXIS));
+        int cnt = 0;
        if(user.getStudentID()!=null){
 
            for (int i = 0; i <user.representativeList.size(); i++) {
-               repPanel.add(createRep(user.representativeList.get(i).getRepresentativeName(), user.representativeList.get(i).getDate()));
+               if(user.currentgrade.equals(user.representativeList.get(i).getGrade()) || user.currentgrade=="0"){
+                   cnt++;
+                   repPanel.add(createRep(user.representativeList.get(i).getRepresentativeName(), user.representativeList.get(i).getDate()));
+               }
+
            }
            System.out.println(user.representativeList.size());
-           repPanel.setPreferredSize(new Dimension(250, (50 * user.representativeList.size())));
+           repPanel.setPreferredSize(new Dimension(250, (50 * cnt)));
         }
         JScrollPane scrollPane = new JScrollPane(repPanel);
 
@@ -147,15 +152,19 @@ public class CampusPanel extends JPanel{
     public static JScrollPane createVolunPanel(Student user) {
         JPanel volunPanel = new JPanel(new FlowLayout());
         volunPanel.setLayout(new BoxLayout(volunPanel, BoxLayout.Y_AXIS));
-       
+        int cnt = 0;
         //This i can be set as a variable that indicate the max number of the item.
         //some back code can set the i use an variable max number.
         if(user.getStudentID()!=null){
             for (int i = 0; i <user.volunteerList.size(); i++) {
-                volunPanel.add(createVolunteer(user.volunteerList.get(i).getVolunteerName(), user.volunteerList.get(i).getDate(),user.volunteerList.get(i).getDuration()));
+                if(user.currentgrade.equals(user.volunteerList.get(i).getGrade()) || user.currentgrade=="0"){
+                    cnt++;
+                    volunPanel.add(createVolunteer(user.volunteerList.get(i).getVolunteerName(), user.volunteerList.get(i).getDate(),user.volunteerList.get(i).getDuration()));
+
+                }
             }
             //This 50*max number of item ,Here set as 10.
-            volunPanel.setPreferredSize(new Dimension(200, 50 * user.volunteerList.size()));
+            volunPanel.setPreferredSize(new Dimension(200, 50 * cnt));
         }
         JScrollPane scrollPane = new JScrollPane(volunPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

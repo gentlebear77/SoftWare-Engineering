@@ -11,6 +11,8 @@ public class Volunteer {
     private String Date;
     @JSONField(name = "Duration",ordinal = 3)
     private String Duration;
+    @JSONField(name = "Grade",ordinal = 3)
+    private String Grade;
 
 
     public String getVolunteerName() {
@@ -37,13 +39,17 @@ public class Volunteer {
         this.Duration = Duration;
     }
 
+    public String getGrade() {
+        return Grade;
+    }
 
     @Override
     public String toString() {
         return "total{" +
                 "VolunteerName='" + VolunteerName + '\'' +
                 ", Date='" + Date + '\'' +
-                ", Duration=" + Duration +
+                ", Duration=" + Duration + '\'' +
+                ", Grade=" + Grade +
                 '}';
     }
 
@@ -53,5 +59,6 @@ public class Volunteer {
         VolunteerName = info.get(0);
         Date = info.get(1);
         Duration = info.get(2);
+        Grade = info.get(3);
     }
 }

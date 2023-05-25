@@ -1,14 +1,13 @@
 package Test;
 
-import Control.Project;
-import Control.Project_Control;
-import Control.Record_Control;
+import ControllerClass.Project_Control;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.ArrayList;
+import EntityClass.*;
 
 public class Project_ControlTest {
     private Project_Control projectControl;

@@ -1,14 +1,14 @@
 package Test;
 
-import Control.Module;
-import Control.Module_Control;
-import Control.Record_Control;
+import ControllerClass.Module_Control;
+import EntityClass.Module;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.ArrayList;
+import EntityClass.*;
 
 public class Module_ControlTest {
     private Module_Control moduleControl;

@@ -13,6 +13,8 @@ public class CampusPanel extends JPanel{
 	private JButton exitButton;
 	private JButton importButton1;
     private JButton importButton2;
+    private JButton deleteButton1;
+    private JButton deleteButton2;
     public   JScrollPane panel1;
     public   JScrollPane panel2;
 
@@ -57,6 +59,12 @@ public class CampusPanel extends JPanel{
         importButton2 = new JButton("Import volunteer experience");
         importButton2.setBounds(700,60,210,25);
 
+        deleteButton1=new JButton("Delete the newest project");
+        deleteButton1.setBounds(100,570,200,30);
+
+        deleteButton2=new JButton("Delete the newest achievement");
+        deleteButton2.setBounds(520,570,200,30);
+
         add(backButton);
         add(exitButton);
         add(titleLabel);
@@ -65,6 +73,8 @@ public class CampusPanel extends JPanel{
 
         add(importButton1);
         add(importButton2);
+        add(deleteButton1);
+        add(deleteButton2);
         add(panel1);
         add(panel2);
     }
@@ -81,6 +91,8 @@ public class CampusPanel extends JPanel{
     public JButton getImportButton2() {
         return importButton2;
     }
+    public JButton getDeleteButton1(){return deleteButton1;}
+    public JButton getDeleteButton2(){return deleteButton2;}
 
     public static JScrollPane createRepPanel(Student user) {
         JPanel repPanel = new JPanel();

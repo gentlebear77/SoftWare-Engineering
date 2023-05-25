@@ -3,10 +3,7 @@ package Control;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONReader;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -36,14 +33,21 @@ public class Total_Control {
                 while (reader.hasNext()) {
                     String key = reader.readString();
                     if ("AverageScore".equals(key)) {
-                        m.setAverageScore(Double.parseDouble(reader.readString()));
+                        String temp=reader.readString();
+                        if(!temp.equals("")){
+                            m.setAverageScore(Double.parseDouble(temp));
+                        }else{m.setAverageScore(0.0);}
                     } else if ("AveragePostgraduate".equals(key)) {
-                        m.setAveragePostgraduate(Double.parseDouble(reader.readString()));
+                        String temp=reader.readString();
+                        if(!temp.equals("")){
+                            m.setAveragePostgraduate(Double.parseDouble(temp));
+                        }else{m.setAveragePostgraduate(0.0);}
                     } else if ("GPA".equals(key)) {
                         m.setGPA(reader.readString());
                     } else if ("Rank".equals(key)) {
                         m.setRank(reader.readString());
                     } else {
+                        System.out.println(m);
                         reader.readObject();//读取对象
                     }
 
@@ -71,6 +75,9 @@ public class Total_Control {
         try {
             String filePath = "src/users/" + id + "/Total.json";
 
+//            FileWriter fw=new FileWriter(filePath);
+//            BufferedWriter bw=new BufferedWriter(fw);
+
             RandomAccessFile randomAccessFile = new RandomAccessFile(filePath, "rw");
             long fileLength = randomAccessFile.length();
             System.out.println(fileLength);
@@ -90,7 +97,7 @@ public class Total_Control {
             System.out.println("JSON successful：" + filePath);
             return true;
         } catch (IOException ex) {
-            System.out.println("写入文件时发生错误：" + ex.getMessage());
+            System.out.println("Error：" + ex.getMessage());
             return false;
         }
     }

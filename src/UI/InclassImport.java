@@ -94,11 +94,13 @@ public class InclassImport extends JPanel {
     }
 
     public String getnumberField(){
-        return numberField.getText();
+        Control_check cc=new Control_check();
+        return cc.check_empty(numberField);
     }
 
     public String getnameField(){
-        return nameField.getText();
+        Control_check cc=new Control_check();
+        return cc.check_empty(nameField);
     }
 
     public double getcreditField(){
@@ -112,7 +114,7 @@ public class InclassImport extends JPanel {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Invalid credit value. Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        return 0;
+        return -1.0;
     }
 
     public String getGrade(){
@@ -126,6 +128,6 @@ public class InclassImport extends JPanel {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Invalid credit value. Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        return 0;
+        return -1.0;
     }
 }

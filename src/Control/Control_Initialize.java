@@ -179,39 +179,22 @@ public class Control_Initialize {
         }
     }
 
-
-
-    public ArrayList<Volunteer> Read_VolunteerJson(String StudentID){
+    public static void newFile(String id,String record){
         try{
-            FileReader fr=new FileReader("src/users/"+StudentID+"/Volunteer.json");
-            ArrayList<Volunteer> result=new ArrayList<Volunteer>();
-            JSONReader reader=new JSONReader(fr);
-            reader.startArray();//开始解析json数组
-            while (reader.hasNext()) {
-                reader.startObject();//开始解析json对象
-                Volunteer m = new Volunteer();
-                while (reader.hasNext()) {
-                    String key = reader.readString();
-                    if ("VolunteerName".equals(key)) {
-                        m.setVolunteerName(reader.readString());
-                    } else if ("Duration".equals(key)) {
-                        m.setDuration(reader.readString());
-                    } else if ("Date".equals(key)) {
-                        m.setDate(reader.readString());
-                    } else {
 
-                        reader.readObject();//读取对象
-                    }
-
-                }
-                reader.endObject();//结束解析对象
-                result.add(m);
-            }
-            reader.endArray();//结束解析数组
-            reader.close();//关闭流
-            return result;
-        }catch (IOException e){
-            return null;
+            File file=new File("src/users/"+id+"/"+record+".json");
+            //file.delete();
+            //new FileWriter(file,false).close();
+            FileWriter fw=new FileWriter(file,false);
+            BufferedWriter bw=new BufferedWriter(fw);
+            fw.write("[]");
+            bw.close();
+            fw.close();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
+
     }
+
+
 }

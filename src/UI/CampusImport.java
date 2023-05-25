@@ -64,10 +64,12 @@ public class CampusImport extends JPanel {
     }
 
     public String getNameField() {
-        return nameField.getText();
+        Control_check cc=new Control_check();
+        return cc.check_empty(nameField);
     }
 
     public String getYearField() {
-        return yearField.getText();
+        Control_check cc=new Control_check();
+        return cc.check_year(yearField);
     }
 }

@@ -57,4 +57,11 @@ public class Total {
     }
 
     public Total(){}
+
+    public Total(double averageScore, double averagePostgraduate, String GPA, String rank) {
+        AverageScore = averageScore;
+        AveragePostgraduate = averagePostgraduate;
+        this.GPA = GPA;
+        Rank = rank;
+    }
 }

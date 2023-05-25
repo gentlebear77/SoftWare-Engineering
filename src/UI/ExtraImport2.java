@@ -64,10 +64,12 @@ public class ExtraImport2 extends JPanel {
     }
 
     public String getYearField() {
-        return yearField.getText();
+        Control_check cc=new Control_check();
+        return cc.check_year(yearField);
     }
 
     public String getNameField() {
-        return nameField.getText();
+        Control_check cc=new Control_check();
+        return cc.check_empty(nameField);
     }
 }

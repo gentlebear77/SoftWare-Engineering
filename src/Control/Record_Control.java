@@ -9,11 +9,6 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 public class Record_Control {
-    public static void main(String args[]){
-        Record_Control RC=new Record_Control();
-        RC.Read_Json("111",new String[]{"Achievement","AchievementName","Date"});
-        System.out.println(RC.Read_Json("111",new String[]{"Achievement","AchievementName","Date","","",""}));
-    }
     public static ArrayList<ArrayList<String>> Read_Json(String StudentID, String[] words){
         try{
             FileReader fr=new FileReader("src/users/"+StudentID+"/"+words[0]+".json");
@@ -34,8 +29,6 @@ public class Record_Control {
                     } else if (words[4].equals(key)) {
                         info1.add(reader.readString());
                     } else if (words[5].equals(key)) {
-                        info1.add(reader.readString());
-                    } else if (words[6].equals(key)) {
                         info1.add(reader.readString());
                     } else {
                         reader.readObject();//读取对象

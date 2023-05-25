@@ -21,7 +21,7 @@ public class Total_Control {
 
     public ArrayList<Total> Read_TotalJson(String StudentID){
         try{
-            FileReader fr=new FileReader("src/users/"+StudentID+"/Total.json");
+            FileReader fr=new FileReader("users/"+StudentID+"/Total.json");
 
             ArrayList<Total> result=new ArrayList<Total>();
             JSONReader reader=new JSONReader(fr);
@@ -72,7 +72,7 @@ public class Total_Control {
         System.out.println("要添加到JSON文件中的数据:" + jsonObj);
 //写入操作
         try {
-            String filePath = "src/users/" + id + "/Total.json";
+            String filePath = "users/" + id + "/Total.json";
 
 //            FileWriter fw=new FileWriter(filePath);
 //            BufferedWriter bw=new BufferedWriter(fw);

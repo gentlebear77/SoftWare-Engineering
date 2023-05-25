@@ -23,7 +23,7 @@ public class Control_Initialize {
 
     public int loginCheck(String id, String password){
         //寻找文件
-        File userFile = new File("src/users/"+id+"/User.json");
+        File userFile = new File("users/"+id+"/User.json");
         if (!userFile.exists()) {//找不到文件，无用户，0
             return 0;
         }
@@ -42,7 +42,7 @@ public class Control_Initialize {
 
     public static Student readUserFile(String id){
         try{
-            FileReader fr=new FileReader("src/users/"+id+"/User.json");
+            FileReader fr=new FileReader("users/"+id+"/User.json");
             //ArrayList<Module> result=new ArrayList<Module>();
             JSONReader reader=new JSONReader(fr);
             reader.startArray();//开始解析json数组
@@ -80,17 +80,17 @@ public class Control_Initialize {
     }
 
     public boolean signUp(String id,String password,String major,String studentName,String degree){
-        File file = new File("././src/users/"+id+"/User.json");
-        File file1 = new File("././src/users/"+id+"/Module.json");
-        File file2 = new File("././src/users/"+id+"/Total.json");
-        File file3 = new File("././src/users/"+id+"/Project.json");
-        File file4 = new File("././src/users/"+id+"/Achievement.json");
-        File file5 = new File("././src/users/"+id+"/Representative.json");
-        File file6 = new File("././src/users/"+id+"/Volunteer.json");
+        File file = new File("././users/"+id+"/User.json");
+        File file1 = new File("././users/"+id+"/Module.json");
+        File file2 = new File("././users/"+id+"/Total.json");
+        File file3 = new File("././users/"+id+"/Project.json");
+        File file4 = new File("././users/"+id+"/Achievement.json");
+        File file5 = new File("././users/"+id+"/Representative.json");
+        File file6 = new File("././users/"+id+"/Volunteer.json");
         if(!file.exists()){
 
             try {
-                Path path= Paths.get("././src/users/"+id);
+                Path path= Paths.get("././users/"+id);
                 Files.createDirectories(path);
                 file.createNewFile();
                 file1.createNewFile();  file2.createNewFile();  file3.createNewFile();
@@ -161,7 +161,7 @@ public class Control_Initialize {
         System.out.println("要添加到JSON文件中的数据:"+jsonObj);
 //写入操作
         try {
-            RandomAccessFile RAwiter = new RandomAccessFile("src/users/"+id+"/User.json", "rw");
+            RandomAccessFile RAwiter = new RandomAccessFile("users/"+id+"/User.json", "rw");
             if(RAwiter.length()!=0){
                 System.out.println("用户文件存在且损坏");
                 return false;
@@ -179,7 +179,7 @@ public class Control_Initialize {
     public static void newFile(String id,String record){
         try{
 
-            File file=new File("src/users/"+id+"/"+record+".json");
+            File file=new File("users/"+id+"/"+record+".json");
             //file.delete();
             //new FileWriter(file,false).close();
             FileWriter fw=new FileWriter(file,false);

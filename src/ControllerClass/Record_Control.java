@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Record_Control {
     public static ArrayList<ArrayList<String>> Read_Json(String StudentID, String[] words){
         try{
-            FileReader fr=new FileReader("src/users/"+StudentID+"/"+words[0]+".json");
+            FileReader fr=new FileReader("users/"+StudentID+"/"+words[0]+".json");
             JSONReader reader=new JSONReader(fr);
             ArrayList<ArrayList<String>> info=new ArrayList<ArrayList<String>>();
             reader.startArray();//开始解析json数组
@@ -58,7 +58,7 @@ public class Record_Control {
         //}
         System.out.println(jsonObj);
         try {
-            String filePath = "src/users/" + id + "/"+tags[0]+".json";
+            String filePath = "users/" + id + "/"+tags[0]+".json";
 
             RandomAccessFile randomAccessFile = new RandomAccessFile(filePath, "rw");
             long fileLength = randomAccessFile.length();

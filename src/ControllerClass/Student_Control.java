@@ -20,7 +20,7 @@ public class Student_Control {
 
     private static Student readUserFile(String id){
         try{
-            FileReader fr=new FileReader("src/users/"+id+"/User.json");
+            FileReader fr=new FileReader("users/"+id+"/User.json");
             //ArrayList<Module> result=new ArrayList<Module>();
             JSONReader reader=new JSONReader(fr);
             reader.startArray();//开始解析json数组
@@ -68,7 +68,7 @@ public class Student_Control {
         System.out.println("要添加到JSON文件中的数据:"+jsonObj);
 //写入操作
         try {
-            RandomAccessFile RAwiter = new RandomAccessFile("src/users/"+id+"/User.json", "rw");
+            RandomAccessFile RAwiter = new RandomAccessFile("users/"+id+"/User.json", "rw");
             if(RAwiter.length()!=0){
                 System.out.println("用户文件存在且损坏");
                 return false;

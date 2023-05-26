@@ -3,6 +3,9 @@ package BoundryClass;
 import EntityClass.Student;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
@@ -10,18 +13,25 @@ public class PersonPanel extends JPanel {
 
     private JButton backButton;
 	private JButton exitButton;
+    private BufferedImage bg;
 
     JLabel usernameLabel2 = new JLabel();
     JLabel realnameLabel2 = new JLabel();
     JLabel gradeLabel2 = new JLabel();
     JLabel majorLabel2 = new JLabel();
     public PersonPanel(Student currentUser) {
+        //background
+        try {
+            bg = ImageIO.read(getClass().getResource("/images/personbg.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setLayout(null);
         currentUser.setCurrentUser(currentUser);
         System.out.println(currentUser.toString());
         JLabel titleLabel = new JLabel("Personal Information");
-        titleLabel.setFont(new Font("Arial", Font.PLAIN, 28));
-        titleLabel.setBounds(350, 100, 475, 40);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        titleLabel.setBounds(330, 100, 475, 40);
 
         JLabel usernameLabel = new JLabel("Username:");
         usernameLabel.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -88,7 +98,13 @@ public class PersonPanel extends JPanel {
         realnameLabel2.setText(currentUser.getStudentName());
         gradeLabel2.setText(currentUser.getDegree());
         majorLabel2.setText(currentUser.getMajor());
+    }
 
+    //background
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
+        // draw image
+        g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
     }
 }

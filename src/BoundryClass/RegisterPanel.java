@@ -1,6 +1,9 @@
 package BoundryClass;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class RegisterPanel extends JPanel {
@@ -12,7 +15,15 @@ public class RegisterPanel extends JPanel {
     private JPasswordField passwordField;
     private JComboBox<String> cgrade;
     private JComboBox<String> cmajor;
+    private BufferedImage bg;
+
     public RegisterPanel() {
+        //background
+        try {
+            bg = ImageIO.read(getClass().getResource("/images/registerbg.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setLayout(null);
 
         backButton = new JButton("Back");//a back-arrow picture
@@ -42,10 +53,11 @@ public class RegisterPanel extends JPanel {
         passwordField.setBounds(230,310,120,25);
 
               
-		JPanel jgrade = new JPanel(); 
+		JPanel jgrade = new JPanel();
+        jgrade.setOpaque(false);
         jgrade.setBounds(25,355,400,40);
         JLabel grade = new JLabel(" Grade:      ");   
-        grade.setFont(new Font("Arial", Font.PLAIN, 15));    
+        grade.setFont(new Font("Arial", Font.PLAIN, 15));
         cgrade = new JComboBox<String>();
         cgrade.addItem("1");
         cgrade.addItem("2");
@@ -54,7 +66,8 @@ public class RegisterPanel extends JPanel {
         jgrade.add(grade);
         jgrade.add(cgrade);
         
-        JPanel jmajor = new JPanel(); 
+        JPanel jmajor = new JPanel();
+        jmajor.setOpaque(false);
         jmajor.setBounds(50,400,400,40);
         JLabel major = new JLabel("  Major:      ");
         major.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -108,5 +121,13 @@ public class RegisterPanel extends JPanel {
 
     public String getMajor(){
         return (String)cmajor.getSelectedItem();
+    }
+
+    //background
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // draw image
+        g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
     }
 }

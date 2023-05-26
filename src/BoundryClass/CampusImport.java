@@ -74,4 +74,8 @@ public class CampusImport extends JPanel {
         return cc.check_year(yearField);
     }
 
+    public void Update(){
+        nameField.setText("");
+        yearField.setText("");
+    }
 }

@@ -130,4 +130,11 @@ public class InclassImport extends JPanel {
         }
         return -1.0;
     }
+
+    public void Update(){
+        nameField.setText("");
+        numberField.setText("");
+        creditField.setText("");
+        markField.setText("");
+    }
 }

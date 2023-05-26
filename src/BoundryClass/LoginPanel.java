@@ -11,8 +11,8 @@ public class LoginPanel extends JPanel{
     private JLabel backgroundLabel;
     private RoundButton loginButton;
     private JButton registerButton;
-    private JTextField usernameField;
-    private JPasswordField passwordField;
+    private JTextField usernameField = new JTextField(15);;
+    private JPasswordField passwordField = new JPasswordField(15);
     private BufferedImage bg;
 
     public LoginPanel() {
@@ -31,13 +31,13 @@ public class LoginPanel extends JPanel{
         JLabel usernameLabel = new JLabel("Username:");
         usernameLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         usernameLabel.setBounds(145,280,85,25);
-        usernameField = new JTextField(15);
+
         usernameField.setBounds(230,280,120,25);
         
         JLabel passwordLabel = new JLabel("Keyword:");
         passwordLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         passwordLabel.setBounds(158,350,72,25);
-        passwordField = new JPasswordField(15);
+
         passwordField.setBounds(230,350,120,25);
         
         loginButton = new RoundButton(" Log in ",25);
@@ -85,6 +85,10 @@ public class LoginPanel extends JPanel{
         return passwordField.getText();
     }
 
+    public void Update() {
+        usernameField.setText("");
+        passwordField.setText("");
+    }
     //background
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

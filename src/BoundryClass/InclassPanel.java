@@ -81,7 +81,6 @@ public class InclassPanel extends JPanel{
         add(exitButton);
         add(titleLabel);
         add(importButton1);
-        add(importButton2);
         add(moduletable);
         add(scoretable);
         add(deleteButton);
@@ -155,7 +154,7 @@ public class InclassPanel extends JPanel{
             scoretable.addRow(new String[]{"Average Score: "+String.format("%.2f",t.getAverageScore())});
             scoretable.addRow(new String[]{"Average Score of Postgraduate: "+String.format("%.2f",t.getAveragePostgraduate())});
             scoretable.addRow(new String[]{"GPA: "+t.getGPA()});
-            scoretable.addRow(new String[]{"Rank: "+t.getRank()});
+
         }
     }
     //background

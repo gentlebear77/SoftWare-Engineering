@@ -95,6 +95,8 @@ public class MainFrame extends JFrame{
                 if(control_initialize.signUp(registerPanel.getUsername(),registerPanel.getPassword(),registerPanel.getMajor(),registerPanel.getRealname(),registerPanel.getGrade())){
 
                     cardLayout.show(cards, "loginPanel");
+                }else{
+                    JOptionPane.showMessageDialog(registerPanel,"Register Fail","Register failed",JOptionPane.PLAIN_MESSAGE);
                 }
 
             }
@@ -102,12 +104,14 @@ public class MainFrame extends JFrame{
 
         registerPanel.getBackButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                registerPanel.Update();
                 cardLayout.show(cards, "loginPanel");
             }
         });
         
         gradePanel.getExitButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                loginPanel.Update();
                 cardLayout.show(cards, "loginPanel");
             }
         });
@@ -179,6 +183,7 @@ public class MainFrame extends JFrame{
 
         functionPanel.getExitButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                loginPanel.Update();
                 cardLayout.show(cards, "loginPanel");
             }
         });
@@ -250,6 +255,7 @@ public class MainFrame extends JFrame{
         });
         inclassPanel.getExitButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                loginPanel.Update();
                 cardLayout.show(cards, "loginPanel");
             }
         });
@@ -285,7 +291,8 @@ public class MainFrame extends JFrame{
                 double mark=inclassImport.getmarkField();
                 if(num.equals("")||name.equals("")||credit<0||mark<0){
                     JOptionPane.showMessageDialog(inclassImport, "Ensure no invalid number and empty field", "Error", JOptionPane.ERROR_MESSAGE);
-                    cardLayout.show(cards, "inclassPanel");
+
+                    cardLayout.show(cards, "inclassImport");
                 }
                 else{
                     module_control.writeUserFile(currentUser.getStudentID(),num,name,inclassImport.getGrade(),credit,mark);
@@ -297,12 +304,14 @@ public class MainFrame extends JFrame{
 
         inclassImport.getExitButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                loginPanel.Update();
                 cardLayout.show(cards, "loginPanel");
             }
         });
 
         inclassImport.getBackButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                inclassImport.Update();
                 cardLayout.show(cards, "inclassPanel");
             }
         });
@@ -318,6 +327,7 @@ public class MainFrame extends JFrame{
 
         inclassImport2.getExitButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                loginPanel.Update();
                 cardLayout.show(cards, "loginPanel");
             }
         });
@@ -335,6 +345,7 @@ public class MainFrame extends JFrame{
         });
         extraclassPanel.getExitButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                loginPanel.Update();
                 cardLayout.show(cards, "loginPanel");
             }
         });
@@ -402,9 +413,9 @@ public class MainFrame extends JFrame{
                 String name=extraImport1.getNameField();
                 String year=extraImport1.getYearField();
                 String cont=extraImport1.getContentField();
-                if(name.equals("")||name.equals("")||cont.equals("")){
+                if(name.equals("")||year.equals("")||cont.equals("")){
                     JOptionPane.showMessageDialog(extraImport1,"yyyy-mm-dd wanted, where yyyy for years, mm for months, dd for days.\nEnsure no empty field.","Error",JOptionPane.ERROR_MESSAGE);
-                    cardLayout.show(cards, "extraclassPanel");
+                    cardLayout.show(cards, "extraImport1");
                 }
                 else{
                     project_control.writeUserFile(currentUser.getStudentID(),name,year,cont,currentUser.currentgrade);
@@ -426,12 +437,14 @@ public class MainFrame extends JFrame{
 
         extraImport1.getExitButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                loginPanel.Update();
                 cardLayout.show(cards, "loginPanel");
             }
         });
 
         extraImport1.getBackButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                extraImport1.Update();
                 cardLayout.show(cards, "extraclassPanel");
             }
         });
@@ -442,7 +455,7 @@ public class MainFrame extends JFrame{
                 String year=extraImport2.getYearField();
                 if(name.equals("")||year.equals("")){
                     JOptionPane.showMessageDialog(extraImport1,"yyyy-mm-dd wanted, where yyyy for years, mm for months, dd for days.\nEnsure no empty field.","Error",JOptionPane.ERROR_MESSAGE);
-                    cardLayout.show(cards, "extraclassPanel");}
+                    cardLayout.show(cards, "extraImport2");}
                 else {
                     achievement_control.writeUserFile(currentUser.getStudentID(),name,year,currentUser.currentgrade);
                     currentUser.achievementList = achievement_control.Read_AchievementJson(currentUser.getStudentID());
@@ -463,12 +476,14 @@ public class MainFrame extends JFrame{
 
         extraImport2.getExitButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                loginPanel.Update();
                 cardLayout.show(cards, "loginPanel");
             }
         });
 
         extraImport2.getBackButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                extraImport2.Update();
                 cardLayout.show(cards, "extraclassPanel");
             }
         });
@@ -480,6 +495,7 @@ public class MainFrame extends JFrame{
         });
         campusPanel.getExitButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                loginPanel.Update();
                 cardLayout.show(cards, "loginPanel");
             }
         });
@@ -550,7 +566,7 @@ public class MainFrame extends JFrame{
                 String year=campusImport.getYearField();
                 if(name.equals("")||year.equals("")){
                     JOptionPane.showMessageDialog(extraImport1,"yyyy-mm-dd wanted, where yyyy for years, mm for months, dd for days.\nEnsure no empty field.","Error",JOptionPane.ERROR_MESSAGE);
-                    cardLayout.show(cards, "campusPanel");
+                    cardLayout.show(cards, "campusImport");
                 }else{
                     representative_control.writeUserFile(currentUser.getStudentID(),name,year,currentUser.currentgrade);
                     currentUser.representativeList = representative_control.Read_RepresentativeJson(currentUser.getStudentID());
@@ -571,12 +587,14 @@ public class MainFrame extends JFrame{
 
         campusImport.getExitButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                loginPanel.Update();
                 cardLayout.show(cards, "loginPanel");
             }
         });
 
         campusImport.getBackButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                campusImport.Update();
                 cardLayout.show(cards, "campusPanel");
             }
         });
@@ -588,7 +606,7 @@ public class MainFrame extends JFrame{
                 String dur=campusImport2.getDurationField();
                 if(name.equals("")||year.equals("")||dur.equals("")){
                     JOptionPane.showMessageDialog(extraImport1,"yyyy-mm-dd wanted, where yyyy for years, mm for months, dd for days.\nEnsure no empty field.","Error",JOptionPane.ERROR_MESSAGE);
-                    cardLayout.show(cards, "campusPanel");}
+                    cardLayout.show(cards, "campusImport2");}
                 else{
                     volunteer_control.writeUserFile(currentUser.getStudentID(),name,year,dur,currentUser.currentgrade);
                     currentUser.volunteerList = volunteer_control.Read_VolunteerJson(currentUser.getStudentID());
@@ -611,12 +629,14 @@ public class MainFrame extends JFrame{
 
         campusImport2.getExitButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                loginPanel.Update();
                 cardLayout.show(cards, "loginPanel");
             }
         });
 
         campusImport2.getBackButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                campusImport2.Update();
                 cardLayout.show(cards, "campusPanel");
             }
         });
@@ -628,12 +648,14 @@ public class MainFrame extends JFrame{
         });
         portfolioPanel.getExitButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                loginPanel.Update();
                 cardLayout.show(cards, "loginPanel");
             }
         });
 
         personPanel.getExitButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                loginPanel.Update();
                 cardLayout.show(cards, "loginPanel");
             }
         });

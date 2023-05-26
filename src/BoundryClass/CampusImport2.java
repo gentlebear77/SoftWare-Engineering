@@ -85,4 +85,10 @@ public class CampusImport2 extends JPanel {
         Control_check cc=new Control_check();
         return cc.check_empty(durationField);
     }
+
+    public void Update(){
+        yearField.setText("");
+        nameField.setText("");
+        durationField.setText("");
+    }
 }

@@ -123,6 +123,11 @@ public class RegisterPanel extends JPanel {
         return (String)cmajor.getSelectedItem();
     }
 
+    public void Update(){
+        usernameField.setText("");
+        realnameField.setText("");
+        passwordField.setText("");
+    }
     //background
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

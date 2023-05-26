@@ -84,4 +84,10 @@ public class ExtraImport1 extends JPanel {
         Control_check cc=new Control_check();
         return cc.check_year(yearField);
     }
+
+    public void Update(){
+        nameField.setText("");
+        contentField.setText("");
+        yearField.setText("");
+    }
 }
